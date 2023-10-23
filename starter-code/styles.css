@@ -13,6 +13,12 @@
   --lightBlueHover: #65e9e4;
   --lightYellow: #f2b137;
   --lightYellowHover: #ffc860;
+  --silverHover: #dbe8ed;
+  --inset: #10212a;
+  --insetYellow: #cc8b13;
+  --insetLightBlue: #118c87;
+  --insetSilver: #6b8997;
+  --Outfit: "Outfit", sans-serif;
 }
 body {
   background-color: var(--DarkNavy);
@@ -23,20 +29,28 @@ body {
   font-weight: 700;
   letter-spacing: 1px;
 }
-span{
-  font-size:x-small;
+span {
+  font-size: x-small;
 }
-
+.play_game {
+  display: none;
+}
+button:hover {
+  cursor: pointer;
+}
+.game_logo {
+  width: 70%;
+  text-align: center;
+}
 /* Section to pick who you want to be and who you want to play with */
 .pickplayer {
+  position: absolute;
+  left: 58%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  /* display: none; */
 }
-#pickplayercard {
+.pickplayercard {
   margin: 20px 0px 20px 0px;
   background-color: var(--SemiDarkNavy);
   display: flex;
@@ -46,11 +60,11 @@ span{
   flex-direction: column;
   padding: 20px 0px 20px;
   width: 70%;
-  box-shadow: 0px 5px #16252e;
+  box-shadow: 0px -5px 0px 0px var(--inset) inset;
   color: var(--Silver);
   line-height: 20px;
 }
-#pickplayerimages {
+.pickplayerimages {
   display: flex;
   background-color: var(--DarkNavy);
   width: 90%;
@@ -65,6 +79,7 @@ span{
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  border: none;
 }
 #image-x {
   width: 50%;
@@ -75,6 +90,8 @@ span{
   border-radius: 10px;
   margin-right: 4px;
   transition: ease-in-out 0.4s;
+  border: none;
+  background: transparent;
 }
 #image-x:hover {
   background: rgba(168, 191, 201, 0.05);
@@ -86,40 +103,39 @@ span{
   align-items: center;
   width: 70%;
 }
-#playcpu {
+.play_against_cpu {
   background-color: var(--lightYellow);
+  box-shadow: 0px -5px 0px 0px var(--insetYellow) inset;
+}
+.play_against_person {
+  background-color: var(--LightBlue);
+  box-shadow: 0px -5px 0px 0px var(--insetLightBlue) inset;
+}
+.play_against_cpu,
+.play_against_person {
   margin-top: 20px;
   padding: 15px 80px 15px 80px;
   border-radius: 12px;
-  box-shadow: 0px 5px #b18024;
   color: var(--DarkNavy);
   width: 100%;
   text-align: center;
   line-height: 25px;
   transition: ease-in-out 0.4s;
+  border: none;
+  font-family: var(--Outfit);
+  font-size: 20px;
+  font-weight: 700;
 }
-#playcpu:hover {
+.play_against_cpu:hover,
+.modal_button_2:hover {
   background-color: var(--lightYellowHover);
 }
-#playperson {
-  background-color: var(--LightBlue);
-  margin-top: 20px;
-  padding: 15px 66px 15px 66px;
-  border-radius: 12px;
-  box-shadow: 0px 5px #1d807c;
-  color: var(--DarkNavy);
-  width: 100%;
-  text-align: center;
-  line-height: 25px;
-  transition: ease-in-out 0.4s;
-}
-#playperson:hover {
+.play_against_person:hover {
   background-color: var(--lightBlueHover);
 }
 
 /* Section to actually play the game */
-
-#keypad {
+.keypad {
   width: 460px;
   height: 300px;
   display: grid;
@@ -135,12 +151,12 @@ span{
   justify-content: center;
   align-items: center;
   background-color: var(--SemiDarkNavy);
-  box-shadow: 0px 5px #16252e;
-  border: 1px solid var(--SemiDarkNavy);
+  box-shadow: 0px -6px 0px 0px var(--inset) inset;
+  border: none;
   border-radius: 7px;
   cursor: pointer;
 }
-#scores {
+.scores_board {
   margin-top: 13px;
   width: 460px;
   height: 45px;
@@ -150,7 +166,7 @@ span{
   gap: 15px;
   color: var(--DarkNavy);
 }
-#turns {
+.turns {
   margin-bottom: 13px;
   width: 460px;
   height: 35px;
@@ -168,46 +184,134 @@ span{
   align-items: center;
   flex-direction: column;
   background-color: var(--LightBlue);
-  box-shadow: 0px 4px #1d807c;
   border: 1px solid var(--LightBlue);
   border-radius: 7px;
 }
 #youwin {
   background-color: var(--LightBlue);
-  box-shadow: 0px 4px #1d807c;
   border: 1px solid var(--LightBlue);
 }
 #tie {
   background-color: var(--Silver);
-  box-shadow: 0px 4px #858f94;
   border: 1px solid var(--Silver);
 }
 #cpuwin {
   background-color: var(--lightYellow);
-  box-shadow: 0px 4px #b18024;
   border: 1px solid var(--lightYellow);
 }
-#whosturn {
+.whosturn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: var(--SemiDarkNavy);
+  box-shadow: 0px -4px 0px 0px var(--inset) inset;
+  border: none;
+  border-radius: 7px;
+}
+.whosturn p {
+  margin-left: 10px;
+}
+.restart {
+  display: flex;
+  justify-content: end;
+}
+.restart_game {
+  height: 33px;
+  width: 30px;
+  transition: ease-in-out 0.4s;
+}
+.restart_game:hover,
+.modal_button_1:hover {
+  background-color: var(--SilverHover);
+}
+.restart_game,
+.modal_button_1 {
+  background-color: var(--Silver);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  box-shadow: 0px -3px 0px 0px var(--insetSilver) inset;
+  border: none;
+}
+
+/* Modal */
+.modal {
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+.modal_card {
+  height: 266px;
+  background-color: var(--SemiDarkNavy);
+  width: 100%;
+  z-index: 100;
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: var(--SemiDarkNavy);
-  box-shadow: 0px 3px #16252e;
-  border: 1px solid var(--SemiDarkNavy);
-  border-radius: 7px;
 }
-#redouter {
-  display: flex;
-  justify-content: end;
-}
-#redoinner {
-  background-color: var(--Silver);
-  height: 33px;
-  width: 30px;
+.winner {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.modal_header {
+  color: var(--lightYellow);
+  font-family: var(--Outfit);
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-left: 20px;
+  text-align: center;
+}
+.modal_button {
+  display: flex;
+  padding-top: 30px;
+  justify-content: space-between;
+}
+.modal_button_1 {
+  box-shadow: 0px -3px 0px 0px var(--insetSilver) inset;
+  width: 70px;
+}
+.modal_button_2 {
+  box-shadow: 0px -3px 0px 0px var(--insetYellow) inset;
   border-radius: 7px;
-  box-shadow: 0px 3px #858f94;
+  width: 146px;
+  border: none;
+  background-color: var(--lightYellow);
+  margin-left: 16px;
+}
+.modal_button_1,
+.modal_button_2 {
+  font-family: var(--Outfit);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1px;
+  color: var(--DarkNavy);
+  height: 52px;
+}
+.message_to_player {
+  color: var(--Silver);
+  font-family: var(--Outfit);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding-bottom: 30px;
 }
