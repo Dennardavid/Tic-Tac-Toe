@@ -125,6 +125,7 @@ button:hover {
   font-family: var(--Outfit);
   font-size: 20px;
   font-weight: 700;
+  transition: all 0.2s;
 }
 .play_against_cpu:hover,
 .modal_button_2:hover {
@@ -133,7 +134,14 @@ button:hover {
 .play_against_person:hover {
   background-color: var(--lightBlueHover);
 }
-
+.play_against_cpu:active {
+  transform: scale(0.98);
+  box-shadow: 0px -2px 0px 0px var(--insetYellow) inset;
+}
+.play_against_person:active {
+  transform: scale(0.98);
+  box-shadow: 0px -2px 0px 0px var(--insetLightBlue) inset;
+}
 /* Section to actually play the game */
 .keypad {
   width: 460px;
@@ -151,10 +159,15 @@ button:hover {
   justify-content: center;
   align-items: center;
   background-color: var(--SemiDarkNavy);
-  box-shadow: 0px -6px 0px 0px var(--inset) inset;
+  box-shadow: 0px -5px 0px 0px var(--inset) inset;
   border: none;
   border-radius: 7px;
   cursor: pointer;
+  transition: all 0.3s;
+}
+.keys:active {
+  transform: scale(0.98);
+  box-shadow: 0px -2px 0px 0px var(--inset) inset;
 }
 .scores_board {
   margin-top: 13px;
@@ -219,7 +232,11 @@ button:hover {
 .restart_game {
   height: 33px;
   width: 30px;
-  transition: ease-in-out 0.4s;
+  transition: all 0.2s;
+}
+.restart_game:active {
+  transform: scale(0.98);
+  box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
 }
 .restart_game:hover,
 .modal_button_1:hover {
@@ -247,6 +264,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   visibility: hidden;
+  backdrop-filter: blur(7px);
 }
 .modal_card {
   height: 266px;
@@ -303,6 +321,14 @@ button:hover {
   letter-spacing: 1px;
   color: var(--DarkNavy);
   height: 52px;
+}
+.modal_button_1:active {
+  transform: scale(0.98);
+  box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
+}
+.modal_button_2:active {
+  transform: scale(0.98);
+  box-shadow: 0px -2px 0px 0px var(--insetYellow) inset;
 }
 .message_to_player {
   color: var(--Silver);
