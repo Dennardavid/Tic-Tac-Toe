@@ -14,6 +14,7 @@ const modal_pic = document.querySelector(".modal_pic");
 const modal_header = document.querySelector(".modal_header");
 const hidden = document.querySelector(".hidden");
 const gameButtons = document.querySelectorAll(".keys");
+let playerTurn = document.querySelector(".whosturnimg");
 let playerSymbol = "";
 let board = [
   ["", "", ""],
@@ -48,7 +49,7 @@ buttonX.addEventListener("click", function () {
 });
 
 buttonO.addEventListener("click", function () {
-  playerSymbol = "O";
+  playerSymbol = "X";
 
   // Set the background so that two backgrounds can't be the same at once when selecting a player
   buttonO.style.backgroundColor = "#60b347";
@@ -81,8 +82,8 @@ const playCpu = function () {
       play_game.style.display = "block";
       pickplayer.style.display = "none";
     }
-    let cpuMove = Math.trunc(Math.random() * 9);
-    console.log(cpuMove);
+    /* let cpuMove = Math.trunc(Math.random() * 9);
+    console.log(cpuMove); */
   });
 };
 
@@ -112,6 +113,7 @@ function addClickListenersToButtons() {
           "alt",
           playerSymbol === "X" ? "Player X" : "Player O"
         );
+        switchPlayer();
       }
     });
   });
@@ -152,4 +154,15 @@ const restart = function () {
 /* Function to close modal with escape key */
 const closeModal = function () {
   modal.style.visibility = "hidden";
+};
+
+/* Function to switch between players in play with another player */
+const switchPlayer = function () {
+  if (playerSymbol === "X") {
+    playerSymbol = "O";
+    playerTurn.setAttribute("src", "./assets/o-turn.png");
+  } else {
+    playerSymbol = "X";
+    playerTurn.setAttribute("src", "./assets/x-turn.png");
+  }
 };
