@@ -103,7 +103,14 @@ const playPerson = function () {
 function addClickListenersToButtons() {
   gameButtons.forEach(function (button, index) {
     button.addEventListener("click", function () {
+      /* Codes To update the board */
+      let row = Math.floor(index / 3);
+      let col = index % 3;
+      board[row][col] = playerSymbol;
+
       let buttonImage = button.querySelector(".gameimg");
+
+      /* Codes To display the image on the button */
       if (buttonImage.getAttribute("src") === "") {
         buttonImage.setAttribute(
           "src",
@@ -113,11 +120,26 @@ function addClickListenersToButtons() {
           "alt",
           playerSymbol === "X" ? "Player X" : "Player O"
         );
+
+        /* Function call to check winner */
+        checkWinner(playerSymbol);
+
         switchPlayer();
       }
     });
   });
 }
+
+/* Function to switch between players in play with another player */
+const switchPlayer = function () {
+  if (playerSymbol === "X") {
+    playerSymbol = "O";
+    playerTurn.setAttribute("src", "./assets/o-turn.png");
+  } else {
+    playerSymbol = "X";
+    playerTurn.setAttribute("src", "./assets/x-turn.png");
+  }
+};
 
 /* Function to bring up restart modal */
 const restartModal = function () {
@@ -148,6 +170,7 @@ const restart = function () {
       buttonImage.setAttribute("src", playerSymbol === "X" ? "" : "");
       buttonImage.setAttribute("alt", playerSymbol === "X" ? "" : "");
     });
+    playerTurn.setAttribute("src", "./assets/x-turn.png");
   });
 };
 
@@ -156,13 +179,41 @@ const closeModal = function () {
   modal.style.visibility = "hidden";
 };
 
-/* Function to switch between players in play with another player */
-const switchPlayer = function () {
-  if (playerSymbol === "X") {
-    playerSymbol = "O";
-    playerTurn.setAttribute("src", "./assets/o-turn.png");
-  } else {
-    playerSymbol = "X";
-    playerTurn.setAttribute("src", "./assets/x-turn.png");
+/* Function to checker the winner of the game */
+function checkWinner(playerSymbol) {
+  // Check rows, columns, and diagonals for a winning combination
+  for (let i = 0; i < 3; i++) {
+    // Check rows
+    if (
+      board[i][0] === playerSymbol &&
+      board[i][1] === playerSymbol &&
+      board[i][2] === playerSymbol
+    ) {
+      modal.style.visibility = "visible";
+    }
+
+    // Check columns
+    if (
+      board[0][i] === playerSymbol &&
+      board[1][i] === playerSymbol &&
+      board[2][i] === playerSymbol
+    ) {
+      modal.style.visibility = "visible";
+    }
+
+    // Check diagonals
+    if (
+      (board[0][0] === playerSymbol &&
+        board[1][1] === playerSymbol &&
+        board[2][2] === playerSymbol) ||
+      (board[0][2] === playerSymbol &&
+        board[1][1] === playerSymbol &&
+        board[2][0] === playerSymbol)
+    ) {
+      modal.style.visibility = "visible";
+    }
   }
-};
+
+  console.log(board);
+  return false;
+}
