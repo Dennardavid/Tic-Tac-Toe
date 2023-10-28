@@ -151,7 +151,7 @@
       <div class="scores_board">
         <div id="youwin">
           <span>X (YOU)</span>
-          <p>0</p>
+          <p class="scoreForX">0</p>
         </div>
         <div id="tie">
           <span>TIES</span>
@@ -159,25 +159,36 @@
         </div>
         <div id="cpuwin">
           <span>O (YOU)</span>
-          <p>0</p>
+          <p class="scoreForO">0</p>
         </div>
       </div>
     </section>
 
-    <section class="modal">
-      <div class="modal_card">
+    <section class="winnerModal">
+      <div class="winnerCard">
         <p class="message_to_player">OH NO, YOU LOST…</p>
         <div class="winner">
           <img src="assets/icon-o.png" alt="player O" class="modal_pic" />
-          <h1 class="modal_header">TAKES THE ROUND</h1>
+          <h1 class="winnerHeader">TAKES THE ROUND</h1>
         </div>
         <div class="modal_button">
-          <button class="modal_button_1">QUIT</button>
-          <button class="modal_button_2">NEXT ROUND</button>
+          <button class="quit">QUIT</button>
+          <button class="nextRound">NEXT ROUND</button>
         </div>
       </div>
     </section>
 
+    <section class="restartModal">
+      <div class="restartModalCard">
+        <div class="restartOptions">
+          <h1 class="restartHeader">RESTART GAME?</h1>
+        </div>
+        <div class="modal_button">
+          <button class="cancel">NO, CANCEL</button>
+          <button class="yesRestart">YES, RESTART</button>
+        </div>
+      </div>
+    </section>
     <script src="index.js"></script>
   </body>
 </html>

@@ -49,6 +49,7 @@ button:hover {
   top: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
+  /* display: none; */
 }
 .pickplayercard {
   margin: 20px 0px 20px 0px;
@@ -128,13 +129,14 @@ button:hover {
   transition: all 0.2s;
 }
 .play_against_cpu:hover,
-.modal_button_2:hover {
+.nextRound:hover {
   background-color: var(--lightYellowHover);
 }
 .play_against_person:hover {
   background-color: var(--lightBlueHover);
 }
-.play_against_cpu:active {
+.play_against_cpu:active,
+.nextRound:active {
   transform: scale(0.98);
   box-shadow: 0px -2px 0px 0px var(--insetYellow) inset;
 }
@@ -239,11 +241,13 @@ button:hover {
   box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
 }
 .restart_game:hover,
-.modal_button_1:hover {
+.quit:hover,
+.cancel:hover {
   background-color: var(--SilverHover);
 }
 .restart_game,
-.modal_button_1 {
+.quit,
+.cancel {
   background-color: var(--Silver);
   display: flex;
   justify-content: center;
@@ -254,7 +258,8 @@ button:hover {
 }
 
 /* Modal */
-.modal {
+.winnerModal,
+.restartModal {
   height: 100vh;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -266,7 +271,19 @@ button:hover {
   visibility: hidden;
   backdrop-filter: blur(7px);
 }
-.modal_card {
+
+.winnerCard {
+  height: 266px;
+  background-color: var(--SemiDarkNavy);
+  width: 100%;
+  z-index: 100;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.restartModalCard {
   height: 266px;
   background-color: var(--SemiDarkNavy);
   width: 100%;
@@ -282,8 +299,8 @@ button:hover {
   justify-content: center;
   align-items: center;
 }
-.modal_header {
-  color: var(--lightYellow);
+.winnerHeader,
+.restartHeader {
   font-family: var(--Outfit);
   font-size: 40px;
   font-style: normal;
@@ -294,25 +311,42 @@ button:hover {
   margin-left: 20px;
   text-align: center;
 }
+.winnerHeader {
+  color: var(--lightYellow);
+}
+.restartHeader {
+  color: var(--Silver);
+}
 .modal_button {
   display: flex;
   padding-top: 30px;
   justify-content: space-between;
 }
-.modal_button_1 {
+.quit {
   box-shadow: 0px -3px 0px 0px var(--insetSilver) inset;
   width: 70px;
 }
-.modal_button_2 {
+.cancel {
+  width: 139px;
+}
+.yesRestart {
+  width: 151px;
+}
+.nextRound {
+  width: 151px;
+}
+.nextRound,
+.yesRestart {
   box-shadow: 0px -3px 0px 0px var(--insetYellow) inset;
   border-radius: 7px;
-  width: 146px;
   border: none;
   background-color: var(--lightYellow);
   margin-left: 16px;
 }
-.modal_button_1,
-.modal_button_2 {
+.quit,
+.nextRound,
+.cancel,
+.yesRestart {
   font-family: var(--Outfit);
   font-size: 16px;
   font-style: normal;
@@ -322,13 +356,17 @@ button:hover {
   color: var(--DarkNavy);
   height: 52px;
 }
-.modal_button_1:active {
-  transform: scale(0.98);
-  box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
+.yesRestart:hover {
+  background-color: var(--lightYellowHover);
 }
-.modal_button_2:active {
+.yesRestart:active {
   transform: scale(0.98);
   box-shadow: 0px -2px 0px 0px var(--insetYellow) inset;
+}
+.quit:active,
+.cancel:active {
+  transform: scale(0.98);
+  box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
 }
 .message_to_player {
   color: var(--Silver);

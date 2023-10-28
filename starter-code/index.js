@@ -3,24 +3,33 @@ const buttonX = document.querySelector("#image-x");
 const buttonO = document.querySelector("#image-o");
 const play_against_cpu = document.querySelector(".play_against_cpu");
 const play_against_person = document.querySelector(".play_against_person");
-const play_game = document.querySelector(".play_game");
 const pickplayer = document.querySelector(".pickplayer");
+const play_game = document.querySelector(".play_game");
 const restart_game = document.querySelector(".restart_game");
-const modal = document.querySelector(".modal");
 const message_to_player = document.querySelector(".message_to_player");
-const modal_button_1 = document.querySelector(".modal_button_1");
-const modal_button_2 = document.querySelector(".modal_button_2");
+const cancel = document.querySelector(".cancel");
+const yesRestart = document.querySelector(".yesRestart");
 const modal_pic = document.querySelector(".modal_pic");
+const quit = document.querySelector(".quit");
+const winnerHeader = document.querySelector(".winnerHeader");
 const modal_header = document.querySelector(".modal_header");
 const hidden = document.querySelector(".hidden");
 const gameButtons = document.querySelectorAll(".keys");
 let playerTurn = document.querySelector(".whosturnimg");
-let playerSymbol = "";
+const winnerModal = document.querySelector(".winnerModal");
+const restartModal = document.querySelector(".restartModal");
+const btnNextRound = document.querySelector(".nextRound");
+let playerSymbol = "X";
+const scoreForX = document.querySelector(".scoreForX");
+const scoreForO = document.querySelector(".scoreForO");
 let board = [
   ["", "", ""],
   ["", "", ""],
   ["", "", ""],
 ];
+let xScore = 0;
+let oScore = 0;
+let tiedScore = 0;
 
 // Set the player to X
 buttonX.addEventListener("click", function () {
@@ -35,17 +44,20 @@ buttonX.addEventListener("click", function () {
   playCpu();
   playPerson();
 
-  /* Function call to restart game */
-  restartModal();
-  restart();
-
-  modal.addEventListener("click", closeModal);
-
-  /* Fuction call on cancel button */
-  modal_button_1.addEventListener("click", closeModal);
-
   /* Function call to displayer player image on the keys */
   addClickListenersToButtons();
+
+  /* Function call to restart game */
+  restartTheModal();
+  restart();
+  quitGame();
+  restartModal.addEventListener("click", closeModal);
+  // winnerModal.addEventListener("click", closeWinnerModal);
+
+  /* Fuction call on cancel button */
+  cancel.addEventListener("click", closeModal);
+  nextRound();
+  // quitGame();
 });
 
 buttonO.addEventListener("click", function () {
@@ -59,18 +71,20 @@ buttonO.addEventListener("click", function () {
   playCpu();
   playPerson();
 
-  /* Function call to restart game */
-  restartModal();
-  restart();
-
-  /* Function calls to close the modal */
-  modal.addEventListener("click", closeModal);
-
-  /* Fuction call on cancel button */
-  modal_button_1.addEventListener("click", closeModal);
-
   /* Function call to displayer player image on the keys */
   addClickListenersToButtons();
+
+  /* Function call to restart game */
+  restartTheModal();
+  restart();
+  quitGame();
+
+  /* Function calls to close the modal */
+  restartModal.addEventListener("click", closeModal);
+  // winnerModal.addEventListener("click", closeWinnerModal);
+  /* Fuction call on cancel button */
+  cancel.addEventListener("click", closeModal);
+  nextRound();
 });
 
 /* Funtion to switch to playing pc mode */
@@ -82,8 +96,6 @@ const playCpu = function () {
       play_game.style.display = "block";
       pickplayer.style.display = "none";
     }
-    /* let cpuMove = Math.trunc(Math.random() * 9);
-    console.log(cpuMove); */
   });
 };
 
@@ -103,14 +115,8 @@ const playPerson = function () {
 function addClickListenersToButtons() {
   gameButtons.forEach(function (button, index) {
     button.addEventListener("click", function () {
-      /* Codes To update the board */
-      let row = Math.floor(index / 3);
-      let col = index % 3;
-      board[row][col] = playerSymbol;
-
-      let buttonImage = button.querySelector(".gameimg");
-
       /* Codes To display the image on the button */
+      let buttonImage = button.querySelector(".gameimg");
       if (buttonImage.getAttribute("src") === "") {
         buttonImage.setAttribute(
           "src",
@@ -121,6 +127,12 @@ function addClickListenersToButtons() {
           playerSymbol === "X" ? "Player X" : "Player O"
         );
 
+        /* Codes To update the board */
+        let row = Math.floor(index / 3);
+        let col = index % 3;
+        board[row][col] = playerSymbol;
+
+        // console.log(playerSymbol);
         /* Function call to check winner */
         checkWinner(playerSymbol);
 
@@ -142,24 +154,16 @@ const switchPlayer = function () {
 };
 
 /* Function to bring up restart modal */
-const restartModal = function () {
+const restartTheModal = function () {
   restart_game.addEventListener("click", function () {
-    modal.style.visibility = "visible";
-    message_to_player.style.display = "none";
-    modal_button_1.textContent = "NO, CANCEL";
-    modal_button_1.style.width = "139px";
-    modal_button_2.textContent = "YES, RESTART";
-    modal_button_2.style.width = "151px";
-    modal_pic.style.display = "none";
-    modal_header.style.color = "#A8BFC9";
-    modal_header.textContent = "RESTART GAME?";
+    restartModal.style.visibility = "visible";
   });
 };
 
 /* Function to restart the game */
 const restart = function () {
-  modal_button_2.addEventListener("click", function () {
-    modal.style.visibility = "hidden";
+  yesRestart.addEventListener("click", function () {
+    restartModal.style.visibility = "hidden";
     play_game.style.display = "none";
     pickplayer.style.display = "block";
     buttonX.style.backgroundColor = "transparent";
@@ -171,16 +175,79 @@ const restart = function () {
       buttonImage.setAttribute("alt", playerSymbol === "X" ? "" : "");
     });
     playerTurn.setAttribute("src", "./assets/x-turn.png");
+    board = [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ];
+    xScore = 0;
+    oScore = 0;
+    scoreForO.textContent = oScore;
+    scoreForX.textContent = xScore;
+    // console.log(playerSymbol);
   });
 };
 
-/* Function to close modal with escape key */
+/* Function to execute when the quit game button is clicked */
+const quitGame = function () {
+  quit.addEventListener("click", function () {
+    winnerModal.style.visibility = "hidden";
+    pickplayer.style.display = "block";
+    play_game.style.display = "none";
+    playerSymbol = "";
+    gameButtons.forEach(function (button) {
+      let buttonImage = button.querySelector(".gameimg");
+      buttonImage.setAttribute("src", playerSymbol === "X" ? "" : "");
+      buttonImage.setAttribute("alt", playerSymbol === "X" ? "" : "");
+    });
+    board = [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ];
+    playerTurn.setAttribute("src", "./assets/x-turn.png");
+    buttonX.style.backgroundColor = "transparent";
+    buttonO.style.backgroundColor = "#a8bfc9";
+    xScore = 0;
+    oScore = 0;
+    scoreForO.textContent = oScore;
+    scoreForX.textContent = xScore;
+    // console.log(board);
+  });
+};
+
+const nextRound = function () {
+  btnNextRound.addEventListener("click", function () {
+    board = [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ];
+    closeWinnerModal();
+    gameButtons.forEach(function (button) {
+      let buttonImage = button.querySelector(".gameimg");
+      buttonImage.setAttribute("src", playerSymbol === "X" ? "" : "");
+      buttonImage.setAttribute("alt", playerSymbol === "X" ? "" : "");
+    });
+    playerTurn.setAttribute("src", "assets/x-turn.png");
+    playerSymbol = "X";
+    // console.log(board);
+  });
+};
+
+/* Functions to close modal by clicking outside */
 const closeModal = function () {
-  modal.style.visibility = "hidden";
+  restartModal.style.visibility = "hidden";
+};
+
+const closeWinnerModal = function () {
+  winnerModal.style.visibility = "hidden";
 };
 
 /* Function to checker the winner of the game */
 function checkWinner(playerSymbol) {
+  let winMessage = "";
+
   // Check rows, columns, and diagonals for a winning combination
   for (let i = 0; i < 3; i++) {
     // Check rows
@@ -189,20 +256,56 @@ function checkWinner(playerSymbol) {
       board[i][1] === playerSymbol &&
       board[i][2] === playerSymbol
     ) {
-      modal.style.visibility = "visible";
+      if (playerSymbol === "X") {
+        modal_pic.setAttribute("src", "assets/icon-x.png");
+        winnerHeader.style.color = "#31c3bd";
+        winnerModal.style.visibility = "visible";
+        winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
+        message_to_player.textContent = winMessage;
+        xScore = xScore + 1;
+        scoreForX.textContent = xScore;
+        console.log(xScore);
+      }
+      if (playerSymbol === "O") {
+        modal_pic.setAttribute("src", "assets/icon-o.png");
+        winnerModal.style.visibility = "visible";
+        winnerHeader.style.color = "#f2b137";
+        winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
+        message_to_player.textContent = winMessage;
+        oScore = oScore + 1;
+        console.log(oScore);
+        scoreForO.textContent = oScore;
+      }
     }
-
-    // Check columns
     if (
+      // Check columns
       board[0][i] === playerSymbol &&
       board[1][i] === playerSymbol &&
       board[2][i] === playerSymbol
     ) {
-      modal.style.visibility = "visible";
+      if (playerSymbol === "X") {
+        modal_pic.setAttribute("src", "assets/icon-x.png");
+        winnerHeader.style.color = "#31c3bd";
+        winnerModal.style.visibility = "visible";
+        winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
+        message_to_player.textContent = winMessage;
+        xScore = xScore + 1;
+        console.log(xScore);
+        scoreForX.textContent = xScore;
+      }
+      if (playerSymbol === "O") {
+        modal_pic.setAttribute("src", "assets/icon-o.png");
+        winnerModal.style.visibility = "visible";
+        winnerHeader.style.color = "#f2b137";
+        winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
+        message_to_player.textContent = winMessage;
+        oScore = oScore + 1;
+        console.log(oScore);
+        scoreForO.textContent = oScore;
+      }
     }
-
-    // Check diagonals
     if (
+      // Check diagonals
       (board[0][0] === playerSymbol &&
         board[1][1] === playerSymbol &&
         board[2][2] === playerSymbol) ||
@@ -210,10 +313,28 @@ function checkWinner(playerSymbol) {
         board[1][1] === playerSymbol &&
         board[2][0] === playerSymbol)
     ) {
-      modal.style.visibility = "visible";
+      if (playerSymbol === "X") {
+        modal_pic.setAttribute("src", "assets/icon-x.png");
+        winnerHeader.style.color = "#31c3bd";
+        winnerModal.style.visibility = "visible";
+        winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
+        message_to_player.textContent = winMessage;
+        xScore = xScore + 1;
+        scoreForX.textContent = xScore;
+        break;
+      }
+      if (playerSymbol === "O") {
+        modal_pic.setAttribute("src", "assets/icon-o.png");
+        winnerModal.style.visibility = "visible";
+        winnerHeader.style.color = "#f2b137";
+        winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
+        message_to_player.textContent = winMessage;
+        oScore = oScore + 1;
+        scoreForO.textContent = oScore;
+        break;
+      }
     }
   }
-
   console.log(board);
   return false;
 }
