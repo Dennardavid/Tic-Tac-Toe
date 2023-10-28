@@ -22,6 +22,7 @@ const btnNextRound = document.querySelector(".nextRound");
 let playerSymbol = "X";
 const scoreForX = document.querySelector(".scoreForX");
 const scoreForO = document.querySelector(".scoreForO");
+const tieScore = document.querySelector(".tie-score");
 let board = [
   ["", "", ""],
   ["", "", ""],
@@ -247,7 +248,7 @@ const closeWinnerModal = function () {
 /* Function to checker the winner of the game */
 function checkWinner(playerSymbol) {
   let winMessage = "";
-
+  let youTied = true;
   // Check rows, columns, and diagonals for a winning combination
   for (let i = 0; i < 3; i++) {
     // Check rows
@@ -265,6 +266,7 @@ function checkWinner(playerSymbol) {
         xScore = xScore + 1;
         scoreForX.textContent = xScore;
         console.log(xScore);
+        break;
       }
       if (playerSymbol === "O") {
         modal_pic.setAttribute("src", "assets/icon-o.png");
@@ -275,6 +277,7 @@ function checkWinner(playerSymbol) {
         oScore = oScore + 1;
         console.log(oScore);
         scoreForO.textContent = oScore;
+        break;
       }
     }
     if (
@@ -292,6 +295,7 @@ function checkWinner(playerSymbol) {
         xScore = xScore + 1;
         console.log(xScore);
         scoreForX.textContent = xScore;
+        break;
       }
       if (playerSymbol === "O") {
         modal_pic.setAttribute("src", "assets/icon-o.png");
@@ -302,6 +306,7 @@ function checkWinner(playerSymbol) {
         oScore = oScore + 1;
         console.log(oScore);
         scoreForO.textContent = oScore;
+        break;
       }
     }
     if (
@@ -333,6 +338,30 @@ function checkWinner(playerSymbol) {
         scoreForO.textContent = oScore;
         break;
       }
+    }
+
+    /*Loop through rows and columns to check for ties  */
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 3; col++) {
+        if (board[row][col] === "") {
+          youTied = false; // If any cell is empty, it's not a tie
+          break;
+        }
+      }
+    }
+
+    if (youTied) {
+      // It's a tie
+      message_to_player.textContent = winMessage;
+      winnerHeader.textContent = "ROUND TIED";
+      winnerHeader.style.color = "#a8bfc9";
+      winnerHeader.style.marginLeft = "-3px";
+      winnerModal.style.visibility = "visible";
+      modal_pic.style.display = "none";
+      tiedScore++;
+      console.log(tiedScore);
+      tieScore.textContent = tiedScore;
+      break;
     }
   }
   console.log(board);
