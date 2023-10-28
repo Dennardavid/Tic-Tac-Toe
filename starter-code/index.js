@@ -183,8 +183,10 @@ const restart = function () {
     ];
     xScore = 0;
     oScore = 0;
+    tiedScore = 0;
     scoreForO.textContent = oScore;
     scoreForX.textContent = xScore;
+    tieScore.textContent = tiedScore;
     // console.log(playerSymbol);
   });
 };
@@ -211,8 +213,10 @@ const quitGame = function () {
     buttonO.style.backgroundColor = "#a8bfc9";
     xScore = 0;
     oScore = 0;
+    tiedScore = 0;
     scoreForO.textContent = oScore;
     scoreForX.textContent = xScore;
+    tieScore.textContent = tiedScore;
     // console.log(board);
   });
 };
