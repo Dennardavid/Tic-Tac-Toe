@@ -19,7 +19,7 @@ let playerTurn = document.querySelector(".whosturnimg");
 const winnerModal = document.querySelector(".winnerModal");
 const restartModal = document.querySelector(".restartModal");
 const btnNextRound = document.querySelector(".nextRound");
-let playerSymbol = "X";
+let playerSymbol = "";
 const scoreForX = document.querySelector(".scoreForX");
 const scoreForO = document.querySelector(".scoreForO");
 const tieScore = document.querySelector(".tie-score");
@@ -31,12 +31,13 @@ let board = [
 let xScore = 0;
 let oScore = 0;
 let tiedScore = 0;
+let winMessage = "";
 
 // Set the player to X
 buttonX.addEventListener("click", function () {
   /* Set current player to X */
   playerSymbol = "X";
-
+  console.log(playerSymbol);
   // Set the background so that two backgrounds can't be the same at once when selecting a player
   buttonX.style.backgroundColor = "#60b347";
   buttonO.style.backgroundColor = "#a8bfc9";
@@ -45,7 +46,7 @@ buttonX.addEventListener("click", function () {
   playCpu();
   playPerson();
 
-  /* Function call to displayer player image on the keys */
+  /* Function call to display player image on the keys */
   addClickListenersToButtons();
 
   /* Function call to restart game */
@@ -63,7 +64,7 @@ buttonX.addEventListener("click", function () {
 
 buttonO.addEventListener("click", function () {
   playerSymbol = "X";
-
+  console.log(playerSymbol);
   // Set the background so that two backgrounds can't be the same at once when selecting a player
   buttonO.style.backgroundColor = "#60b347";
   buttonX.style.backgroundColor = "transparent";
@@ -121,7 +122,9 @@ function addClickListenersToButtons() {
       if (buttonImage.getAttribute("src") === "") {
         buttonImage.setAttribute(
           "src",
-          playerSymbol === "X" ? "./assets/icon-x.png" : "./assets/icon-o.png"
+          playerSymbol === "X"
+            ? "./starter-code/assets/icon-x.png"
+            : "./starter-code/assets/icon-o.png"
         );
         buttonImage.setAttribute(
           "alt",
@@ -140,6 +143,7 @@ function addClickListenersToButtons() {
         switchPlayer();
       }
     });
+    // button.addEventListener(hov);
   });
 }
 
@@ -147,10 +151,10 @@ function addClickListenersToButtons() {
 const switchPlayer = function () {
   if (playerSymbol === "X") {
     playerSymbol = "O";
-    playerTurn.setAttribute("src", "./assets/o-turn.png");
+    playerTurn.setAttribute("src", "./starter-code/assets/o-turn.png");
   } else {
     playerSymbol = "X";
-    playerTurn.setAttribute("src", "./assets/x-turn.png");
+    playerTurn.setAttribute("src", "./starter-code/assets/x-turn.png");
   }
 };
 
@@ -175,18 +179,13 @@ const restart = function () {
       buttonImage.setAttribute("src", playerSymbol === "X" ? "" : "");
       buttonImage.setAttribute("alt", playerSymbol === "X" ? "" : "");
     });
-    playerTurn.setAttribute("src", "./assets/x-turn.png");
+    playerTurn.setAttribute("src", "./starter-code/assets/x-turn.png");
     board = [
       ["", "", ""],
       ["", "", ""],
       ["", "", ""],
     ];
-    xScore = 0;
-    oScore = 0;
-    tiedScore = 0;
-    scoreForO.textContent = oScore;
-    scoreForX.textContent = xScore;
-    tieScore.textContent = tiedScore;
+    updateScoreBoard();
     // console.log(playerSymbol);
   });
 };
@@ -208,17 +207,21 @@ const quitGame = function () {
       ["", "", ""],
       ["", "", ""],
     ];
-    playerTurn.setAttribute("src", "./assets/x-turn.png");
+    playerTurn.setAttribute("src", "./starter-code/assets/x-turn.png");
     buttonX.style.backgroundColor = "transparent";
     buttonO.style.backgroundColor = "#a8bfc9";
-    xScore = 0;
-    oScore = 0;
-    tiedScore = 0;
-    scoreForO.textContent = oScore;
-    scoreForX.textContent = xScore;
-    tieScore.textContent = tiedScore;
+    updateScoreBoard();
     // console.log(board);
   });
+};
+
+const updateScoreBoard = function () {
+  xScore = 0;
+  oScore = 0;
+  tiedScore = 0;
+  scoreForO.textContent = oScore;
+  scoreForX.textContent = xScore;
+  tieScore.textContent = tiedScore;
 };
 
 const nextRound = function () {
@@ -234,8 +237,9 @@ const nextRound = function () {
       buttonImage.setAttribute("src", playerSymbol === "X" ? "" : "");
       buttonImage.setAttribute("alt", playerSymbol === "X" ? "" : "");
     });
-    playerTurn.setAttribute("src", "assets/x-turn.png");
+    playerTurn.setAttribute("src", "./starter-code/assets/x-turn.png");
     playerSymbol = "X";
+    // winnerHeader.textContent = "";
     // console.log(board);
   });
 };
@@ -249,9 +253,49 @@ const closeWinnerModal = function () {
   winnerModal.style.visibility = "hidden";
 };
 
+const xWon = function () {
+  modal_pic.setAttribute("src", "./starter-code/assets/icon-x.png");
+  modal_pic.style.display = "block";
+  modal_pic.style.marginRight = "15px";
+  winnerHeader.style.color = "#31c3bd";
+  winnerModal.style.visibility = "visible";
+  winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
+  message_to_player.textContent = winMessage;
+  winnerHeader.textContent = "TAKES THE ROUND";
+  xScore = xScore + 1;
+  scoreForX.textContent = xScore;
+  console.log(xScore);
+};
+
+const oWon = function () {
+  modal_pic.setAttribute("src", "./starter-code/assets/icon-o.png");
+  modal_pic.style.display = "block";
+  modal_pic.style.marginRight = "10px";
+  winnerModal.style.visibility = "visible";
+  winnerHeader.style.color = "#f2b137";
+  winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
+  message_to_player.textContent = winMessage;
+  winnerHeader.textContent = "TAKES THE ROUND";
+  oScore = oScore + 1;
+  console.log(oScore);
+  scoreForO.textContent = oScore;
+};
+
+const theyTied = function () {
+  winMessage = "";
+  message_to_player.textContent = winMessage;
+  winnerHeader.textContent = "ROUND TIED";
+  winnerHeader.style.color = "#a8bfc9";
+  winnerHeader.style.marginLeft = "-3px";
+  winnerModal.style.visibility = "visible";
+  modal_pic.style.display = "none";
+  tiedScore++;
+  console.log(tiedScore);
+  tieScore.textContent = tiedScore;
+};
+
 /* Function to checker the winner of the game */
 function checkWinner(playerSymbol) {
-  let winMessage = "";
   let youTied = true;
   // Check rows, columns, and diagonals for a winning combination
   for (let i = 0; i < 3; i++) {
@@ -262,25 +306,13 @@ function checkWinner(playerSymbol) {
       board[i][2] === playerSymbol
     ) {
       if (playerSymbol === "X") {
-        modal_pic.setAttribute("src", "assets/icon-x.png");
-        winnerHeader.style.color = "#31c3bd";
-        winnerModal.style.visibility = "visible";
-        winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
-        message_to_player.textContent = winMessage;
-        xScore = xScore + 1;
-        scoreForX.textContent = xScore;
-        console.log(xScore);
+        xWon();
+        console.log(playerSymbol);
         break;
       }
       if (playerSymbol === "O") {
-        modal_pic.setAttribute("src", "assets/icon-o.png");
-        winnerModal.style.visibility = "visible";
-        winnerHeader.style.color = "#f2b137";
-        winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
-        message_to_player.textContent = winMessage;
-        oScore = oScore + 1;
-        console.log(oScore);
-        scoreForO.textContent = oScore;
+        oWon();
+        console.log(playerSymbol);
         break;
       }
     }
@@ -291,25 +323,13 @@ function checkWinner(playerSymbol) {
       board[2][i] === playerSymbol
     ) {
       if (playerSymbol === "X") {
-        modal_pic.setAttribute("src", "assets/icon-x.png");
-        winnerHeader.style.color = "#31c3bd";
-        winnerModal.style.visibility = "visible";
-        winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
-        message_to_player.textContent = winMessage;
-        xScore = xScore + 1;
-        console.log(xScore);
-        scoreForX.textContent = xScore;
+        xWon();
+        console.log(playerSymbol);
         break;
       }
       if (playerSymbol === "O") {
-        modal_pic.setAttribute("src", "assets/icon-o.png");
-        winnerModal.style.visibility = "visible";
-        winnerHeader.style.color = "#f2b137";
-        winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
-        message_to_player.textContent = winMessage;
-        oScore = oScore + 1;
-        console.log(oScore);
-        scoreForO.textContent = oScore;
+        oWon();
+        console.log(playerSymbol);
         break;
       }
     }
@@ -323,23 +343,13 @@ function checkWinner(playerSymbol) {
         board[2][0] === playerSymbol)
     ) {
       if (playerSymbol === "X") {
-        modal_pic.setAttribute("src", "assets/icon-x.png");
-        winnerHeader.style.color = "#31c3bd";
-        winnerModal.style.visibility = "visible";
-        winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
-        message_to_player.textContent = winMessage;
-        xScore = xScore + 1;
-        scoreForX.textContent = xScore;
+        xWon();
+        console.log(playerSymbol);
         break;
       }
       if (playerSymbol === "O") {
-        modal_pic.setAttribute("src", "assets/icon-o.png");
-        winnerModal.style.visibility = "visible";
-        winnerHeader.style.color = "#f2b137";
-        winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
-        message_to_player.textContent = winMessage;
-        oScore = oScore + 1;
-        scoreForO.textContent = oScore;
+        oWon();
+        console.log(playerSymbol);
         break;
       }
     }
@@ -356,15 +366,7 @@ function checkWinner(playerSymbol) {
 
     if (youTied) {
       // It's a tie
-      message_to_player.textContent = winMessage;
-      winnerHeader.textContent = "ROUND TIED";
-      winnerHeader.style.color = "#a8bfc9";
-      winnerHeader.style.marginLeft = "-3px";
-      winnerModal.style.visibility = "visible";
-      modal_pic.style.display = "none";
-      tiedScore++;
-      console.log(tiedScore);
-      tieScore.textContent = tiedScore;
+      theyTied();
       break;
     }
   }
