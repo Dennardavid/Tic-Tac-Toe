@@ -42,6 +42,9 @@ button:hover {
   width: 70%;
   text-align: center;
 }
+
+@media screen {
+}
 /* Section to pick who you want to be and who you want to play with */
 .pickplayer {
   position: absolute;

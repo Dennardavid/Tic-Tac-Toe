@@ -32,6 +32,7 @@ let xScore = 0;
 let oScore = 0;
 let tiedScore = 0;
 let winMessage = "";
+const EMPTY = "";
 
 // Set the player to X
 buttonX.addEventListener("click", function () {
@@ -48,6 +49,7 @@ buttonX.addEventListener("click", function () {
 
   /* Function call to display player image on the keys */
   addClickListenersToButtons();
+  displayOutline();
 
   /* Function call to restart game */
   restartTheModal();
@@ -75,6 +77,7 @@ buttonO.addEventListener("click", function () {
 
   /* Function call to displayer player image on the keys */
   addClickListenersToButtons();
+  displayOutline();
 
   /* Function call to restart game */
   restartTheModal();
@@ -99,6 +102,14 @@ const playCpu = function () {
       pickplayer.style.display = "none";
     }
   });
+
+  // Execute CPU's move after a small delay
+  setTimeout(() => {
+    makeCPUMove();
+    // Update the UI and check for a win/tie
+    updateGameBoardUI();
+    checkWinner();
+  }, 500); // Adjust the delay as needed
 };
 
 /* Funtion to switch to playing with another player mode */
@@ -143,7 +154,53 @@ function addClickListenersToButtons() {
         switchPlayer();
       }
     });
-    // button.addEventListener(hov);
+  });
+}
+
+/* Function to display outline on hover of button */
+function displayOutline() {
+  gameButtons.forEach(function (button, index) {
+    let buttonImage = button.querySelector(".gameimg");
+    button.addEventListener("mouseenter", function () {
+      if (buttonImage.getAttribute("src") !== "") {
+        let symbol = buttonImage.getAttribute("src").includes("icon-x")
+          ? "X"
+          : "O";
+
+        buttonImage.setAttribute(
+          "src",
+          symbol === "X"
+            ? "./starter-code/assets/icon-x-outline.png"
+            : "./starter-code/assets/icon-o-outline.png"
+        );
+        buttonImage.setAttribute(
+          "alt",
+          symbol === "X" ? "Player X" : "Player O"
+        );
+
+        // switchPlayer();
+      }
+    });
+
+    /* Function to return to original symbol on mouse leave */
+    button.addEventListener("mouseleave", function () {
+      if (buttonImage.getAttribute("src") !== "") {
+        let symbol = buttonImage.getAttribute("src").includes("icon-x")
+          ? "X"
+          : "O";
+
+        buttonImage.setAttribute(
+          "src",
+          symbol === "X"
+            ? "./starter-code/assets/icon-x.png"
+            : "./starter-code/assets/icon-o.png"
+        );
+        buttonImage.setAttribute(
+          "alt",
+          symbol === "X" ? "Player X" : "Player O"
+        );
+      }
+    });
   });
 }
 
@@ -185,7 +242,7 @@ const restart = function () {
       ["", "", ""],
       ["", "", ""],
     ];
-    updateScoreBoard();
+    initializeScoreBoard();
     // console.log(playerSymbol);
   });
 };
@@ -210,12 +267,12 @@ const quitGame = function () {
     playerTurn.setAttribute("src", "./starter-code/assets/x-turn.png");
     buttonX.style.backgroundColor = "transparent";
     buttonO.style.backgroundColor = "#a8bfc9";
-    updateScoreBoard();
+    initializeScoreBoard();
     // console.log(board);
   });
 };
 
-const updateScoreBoard = function () {
+const initializeScoreBoard = function () {
   xScore = 0;
   oScore = 0;
   tiedScore = 0;
@@ -265,6 +322,8 @@ const xWon = function () {
   xScore = xScore + 1;
   scoreForX.textContent = xScore;
   console.log(xScore);
+
+  highlightWinningButtons("X");
 };
 
 const oWon = function () {
@@ -279,6 +338,8 @@ const oWon = function () {
   oScore = oScore + 1;
   console.log(oScore);
   scoreForO.textContent = oScore;
+
+  highlightWinningButtons("O");
 };
 
 const theyTied = function () {
@@ -306,12 +367,18 @@ function checkWinner(playerSymbol) {
       board[i][2] === playerSymbol
     ) {
       if (playerSymbol === "X") {
-        xWon();
+        setTimeout(() => {
+          xWon();
+        }, 300);
+
         console.log(playerSymbol);
         break;
       }
       if (playerSymbol === "O") {
-        oWon();
+        setTimeout(() => {
+          oWon();
+        }, 300);
+        // oWon();
         console.log(playerSymbol);
         break;
       }
@@ -323,12 +390,16 @@ function checkWinner(playerSymbol) {
       board[2][i] === playerSymbol
     ) {
       if (playerSymbol === "X") {
-        xWon();
+        setTimeout(() => {
+          xWon();
+        }, 300);
         console.log(playerSymbol);
         break;
       }
       if (playerSymbol === "O") {
-        oWon();
+        setTimeout(() => {
+          oWon();
+        }, 300);
         console.log(playerSymbol);
         break;
       }
@@ -343,12 +414,16 @@ function checkWinner(playerSymbol) {
         board[2][0] === playerSymbol)
     ) {
       if (playerSymbol === "X") {
-        xWon();
+        setTimeout(() => {
+          xWon();
+        }, 300);
         console.log(playerSymbol);
         break;
       }
       if (playerSymbol === "O") {
-        oWon();
+        setTimeout(() => {
+          oWon();
+        }, 300);
         console.log(playerSymbol);
         break;
       }
@@ -366,10 +441,72 @@ function checkWinner(playerSymbol) {
 
     if (youTied) {
       // It's a tie
-      theyTied();
+      setTimeout(() => {
+        theyTied();
+      }, 300);
       break;
     }
   }
-  console.log(board);
+  // console.log(board);
   return false;
 }
+
+function highlightWinningButtons(symbol) {
+  gameButtons.forEach(function (button, index) {
+    let buttonImage = button.querySelector(".gameimg");
+    let buttonSymbol = buttonImage.getAttribute("src").includes("icon-x")
+      ? "X"
+      : "O";
+
+    if (buttonSymbol === symbol) {
+      button.style.backgroundColor = symbol === "X" ? "#31c3bd" : "#f2b137";
+    }
+  });
+}
+
+// Function to make the computer's move
+/* function makeCPUMove() {
+  // Try to win
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (board[i][j] === EMPTY) {
+        board[i][j] = "O"; // Assume the computer is "O"
+        if (checkWinner("O")) {
+          return;
+        }
+        board[i][j] = EMPTY;
+      }
+    }
+  }
+ */
+// Try to block the user from winning
+/*   for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (board[i][j] === EMPTY) {
+        board[i][j] = "X"; // Assume the user is "X"
+        if (checkWinner("X")) {
+          board[i][j] = "O"; // Prevent user from winning
+          return;
+        }
+        board[i][j] = EMPTY;
+      }
+    }
+  }
+
+ */ // Make a random move
+/*   let emptyCells = [];
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (board[i][j] === EMPTY) {
+        emptyCells.push([i, j]);
+      }
+    }
+  }
+
+  if (emptyCells.length > 0) {
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const [i, j] = emptyCells[randomIndex];
+    board[i][j] = "O"; // Assume the computer is "O"
+  }
+}
+ */
