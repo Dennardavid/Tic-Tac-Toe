@@ -115,7 +115,7 @@ button:hover {
 .play_against_cpu,
 .play_against_person {
   margin-top: 20px;
-  padding: 25px 60px 25px 60px;
+  padding: 25px 40px 25px 40px;
   border-radius: 12px;
   color: var(--DarkNavy);
   text-align: center;
@@ -149,11 +149,10 @@ button:hover {
   height: 400px;
   display: grid;
   justify-content: center;
-  grid-template-columns: 120px 120px 120px;
-  grid-template-rows: 130px 130px 130px;
+  grid-template-columns: 110px 110px 110px;
+  grid-template-rows: 120px 120px 120px;
   gap: 15px;
   text-align: center;
-  /* font-weight: 700; */
   /* background-color: green; */
 }
 .keys {
@@ -177,7 +176,7 @@ button:hover {
   height: 70px;
   display: grid;
   justify-content: center;
-  grid-template-columns: 120px 120px 120px;
+  grid-template-columns: 110px 110px 110px;
   gap: 15px;
   color: var(--DarkNavy);
   /* background-color: red; */
@@ -188,7 +187,7 @@ button:hover {
   height: 40px;
   display: grid;
   justify-content: center;
-  grid-template-columns: 120px 120px 120px;
+  grid-template-columns: 110px 110px 110px;
   gap: 15px;
   color: var(--Silver);
 }
