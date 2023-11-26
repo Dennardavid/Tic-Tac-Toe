@@ -39,20 +39,15 @@ button:hover {
   cursor: pointer;
 }
 .game_logo {
-  width: 70%;
+  width: 90%;
   text-align: center;
 }
-
-@media screen {
-}
-/* Section to pick who you want to be and who you want to play with */
 .pickplayer {
   position: absolute;
-  left: 58%;
+  left: 60%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
-  /* display: none; */
+  width: 100%;
 }
 .pickplayercard {
   margin: 20px 0px 20px 0px;
@@ -62,9 +57,9 @@ button:hover {
   border-radius: 12px;
   align-items: center;
   flex-direction: column;
-  padding: 20px 0px 20px;
-  width: 70%;
-  box-shadow: 0px -5px 0px 0px var(--inset) inset;
+  padding: 30px 0px 30px;
+  width: 90%;
+  box-shadow: 0px -3px 0px 0px var(--inset) inset;
   color: var(--Silver);
   line-height: 20px;
 }
@@ -74,7 +69,7 @@ button:hover {
   width: 90%;
   border-radius: 10px;
   margin: 20px 0px 20px 0px;
-  padding: 7px;
+  padding: 15px;
 }
 #image-o {
   background-color: var(--Silver);
@@ -88,11 +83,11 @@ button:hover {
 #image-x {
   width: 50%;
   display: flex;
-  padding: 5px 0px 5px 0px;
+  padding: 15px 0px 15px 0px;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  margin-right: 4px;
+  margin-right: 9px;
   transition: ease-in-out 0.4s;
   border: none;
   background: transparent;
@@ -105,7 +100,7 @@ button:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 90%;
 }
 .play_against_cpu {
   background-color: var(--lightYellow);
@@ -118,15 +113,14 @@ button:hover {
 .play_against_cpu,
 .play_against_person {
   margin-top: 20px;
-  padding: 15px 80px 15px 80px;
+  padding: 25px 60px 25px 60px;
   border-radius: 12px;
   color: var(--DarkNavy);
-  width: 100%;
   text-align: center;
+  width: 100%;
   line-height: 25px;
   transition: ease-in-out 0.4s;
   border: none;
-  font-family: var(--Outfit);
   font-size: 20px;
   font-weight: 700;
   transition: all 0.2s;
@@ -381,4 +375,681 @@ button:hover {
   letter-spacing: 1px;
   text-transform: uppercase;
   padding-bottom: 30px;
+}
+@media only screen and (min-width: 700px) {
+  .pickplayer {
+    position: absolute;
+    left: 58%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    /* display: none; */
+  }
+  .pickplayercard {
+    margin: 20px 0px 20px 0px;
+    background-color: var(--SemiDarkNavy);
+    display: flex;
+    justify-content: center;
+    border-radius: 12px;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0px 20px;
+    width: 70%;
+    box-shadow: 0px -5px 0px 0px var(--inset) inset;
+    color: var(--Silver);
+    line-height: 20px;
+  }
+  .pickplayerimages {
+    display: flex;
+    background-color: var(--DarkNavy);
+    width: 90%;
+    border-radius: 10px;
+    margin: 20px 0px 20px 0px;
+    padding: 7px;
+  }
+  #image-o {
+    background-color: var(--Silver);
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: none;
+  }
+  #image-x {
+    width: 50%;
+    display: flex;
+    padding: 5px 0px 5px 0px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-right: 4px;
+    transition: ease-in-out 0.4s;
+    border: none;
+    background: transparent;
+  }
+  #image-x:hover {
+    background: rgba(168, 191, 201, 0.05);
+  }
+  .gametype {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+  }
+  .play_against_cpu {
+    background-color: var(--lightYellow);
+    box-shadow: 0px -5px 0px 0px var(--insetYellow) inset;
+  }
+  .play_against_person {
+    background-color: var(--LightBlue);
+    box-shadow: 0px -5px 0px 0px var(--insetLightBlue) inset;
+  }
+  .play_against_cpu,
+  .play_against_person {
+    margin-top: 20px;
+    padding: 15px 80px 15px 80px;
+    border-radius: 12px;
+    color: var(--DarkNavy);
+    width: 100%;
+    text-align: center;
+    line-height: 25px;
+    transition: ease-in-out 0.4s;
+    border: none;
+    font-family: var(--Outfit);
+    font-size: 20px;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+  .play_against_cpu:hover,
+  .nextRound:hover {
+    background-color: var(--lightYellowHover);
+  }
+  .play_against_person:hover {
+    background-color: var(--lightBlueHover);
+  }
+  .play_against_cpu:active,
+  .nextRound:active {
+    transform: scale(0.98);
+    box-shadow: 0px -2px 0px 0px var(--insetYellow) inset;
+  }
+  .play_against_person:active {
+    transform: scale(0.98);
+    box-shadow: 0px -2px 0px 0px var(--insetLightBlue) inset;
+  }
+  /* Section to actually play the game */
+  .keypad {
+    width: 460px;
+    height: 300px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 90px 90px 90px;
+    gap: 15px;
+    text-align: center;
+    font-weight: 700;
+  }
+  .keys {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--SemiDarkNavy);
+    box-shadow: 0px -5px 0px 0px var(--inset) inset;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .keys:active {
+    transform: scale(0.98);
+    box-shadow: 0px -2px 0px 0px var(--inset) inset;
+  }
+  .scores_board {
+    margin-top: 13px;
+    width: 460px;
+    height: 45px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 100px 100px 100px;
+    gap: 15px;
+    color: var(--DarkNavy);
+  }
+  .turns {
+    margin-bottom: 13px;
+    width: 460px;
+    height: 35px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 100px 100px 100px;
+    gap: 15px;
+    color: var(--Silver);
+  }
+  #youwin,
+  #tie,
+  #cpuwin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--LightBlue);
+    border: 1px solid var(--LightBlue);
+    border-radius: 7px;
+  }
+  #youwin {
+    background-color: var(--LightBlue);
+    border: 1px solid var(--LightBlue);
+  }
+  #tie {
+    background-color: var(--Silver);
+    border: 1px solid var(--Silver);
+  }
+  #cpuwin {
+    background-color: var(--lightYellow);
+    border: 1px solid var(--lightYellow);
+  }
+  .whosturn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: var(--SemiDarkNavy);
+    box-shadow: 0px -4px 0px 0px var(--inset) inset;
+    border: none;
+    border-radius: 7px;
+  }
+  .whosturn p {
+    margin-left: 10px;
+  }
+  .restart {
+    display: flex;
+    justify-content: end;
+  }
+  .restart_game {
+    height: 33px;
+    width: 30px;
+    transition: all 0.2s;
+  }
+  .restart_game:active {
+    transform: scale(0.98);
+    box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
+  }
+  .restart_game:hover,
+  .quit:hover,
+  .cancel:hover {
+    background-color: var(--SilverHover);
+  }
+  .restart_game,
+  .quit,
+  .cancel {
+    background-color: var(--Silver);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    box-shadow: 0px -3px 0px 0px var(--insetSilver) inset;
+    border: none;
+  }
+
+  /* Modal */
+  .winnerModal,
+  .restartModal {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    backdrop-filter: blur(7px);
+  }
+
+  .winnerCard {
+    height: 266px;
+    background-color: var(--SemiDarkNavy);
+    width: 100%;
+    z-index: 100;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .restartModalCard {
+    height: 266px;
+    background-color: var(--SemiDarkNavy);
+    width: 100%;
+    z-index: 100;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .winner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .winnerHeader,
+  .restartHeader {
+    font-family: var(--Outfit);
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-left: 20px;
+    text-align: center;
+  }
+  .winnerHeader {
+    color: var(--lightYellow);
+  }
+  .restartHeader {
+    color: var(--Silver);
+  }
+  .modal_button {
+    display: flex;
+    padding-top: 30px;
+    justify-content: space-between;
+  }
+  .quit {
+    box-shadow: 0px -3px 0px 0px var(--insetSilver) inset;
+    width: 70px;
+  }
+  .cancel {
+    width: 139px;
+  }
+  .yesRestart {
+    width: 151px;
+  }
+  .nextRound {
+    width: 151px;
+  }
+  .nextRound,
+  .yesRestart {
+    box-shadow: 0px -3px 0px 0px var(--insetYellow) inset;
+    border-radius: 7px;
+    border: none;
+    background-color: var(--lightYellow);
+    margin-left: 16px;
+  }
+  .quit,
+  .nextRound,
+  .cancel,
+  .yesRestart {
+    font-family: var(--Outfit);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: var(--DarkNavy);
+    height: 52px;
+  }
+  .yesRestart:hover {
+    background-color: var(--lightYellowHover);
+  }
+  .yesRestart:active {
+    transform: scale(0.98);
+    box-shadow: 0px -2px 0px 0px var(--insetYellow) inset;
+  }
+  .quit:active,
+  .cancel:active {
+    transform: scale(0.98);
+    box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
+  }
+  .message_to_player {
+    color: var(--Silver);
+    font-family: var(--Outfit);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding-bottom: 30px;
+  }
+}
+/* Section to pick who you want to be and who you want to play with */
+@media only screen and (min-width: 1000px) {
+  .pickplayer {
+    position: absolute;
+    left: 58%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    /* display: none; */
+  }
+  .pickplayercard {
+    margin: 20px 0px 20px 0px;
+    background-color: var(--SemiDarkNavy);
+    display: flex;
+    justify-content: center;
+    border-radius: 12px;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0px 20px;
+    width: 70%;
+    box-shadow: 0px -5px 0px 0px var(--inset) inset;
+    color: var(--Silver);
+    line-height: 20px;
+  }
+  .pickplayerimages {
+    display: flex;
+    background-color: var(--DarkNavy);
+    width: 90%;
+    border-radius: 10px;
+    margin: 20px 0px 20px 0px;
+    padding: 7px;
+  }
+  #image-o {
+    background-color: var(--Silver);
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: none;
+  }
+  #image-x {
+    width: 50%;
+    display: flex;
+    padding: 5px 0px 5px 0px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-right: 4px;
+    transition: ease-in-out 0.4s;
+    border: none;
+    background: transparent;
+  }
+  #image-x:hover {
+    background: rgba(168, 191, 201, 0.05);
+  }
+  .gametype {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+  }
+  .play_against_cpu {
+    background-color: var(--lightYellow);
+    box-shadow: 0px -5px 0px 0px var(--insetYellow) inset;
+  }
+  .play_against_person {
+    background-color: var(--LightBlue);
+    box-shadow: 0px -5px 0px 0px var(--insetLightBlue) inset;
+  }
+  .play_against_cpu,
+  .play_against_person {
+    margin-top: 20px;
+    padding: 15px 80px 15px 80px;
+    border-radius: 12px;
+    color: var(--DarkNavy);
+    width: 100%;
+    text-align: center;
+    line-height: 25px;
+    transition: ease-in-out 0.4s;
+    border: none;
+    font-family: var(--Outfit);
+    font-size: 20px;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+  .play_against_cpu:hover,
+  .nextRound:hover {
+    background-color: var(--lightYellowHover);
+  }
+  .play_against_person:hover {
+    background-color: var(--lightBlueHover);
+  }
+  .play_against_cpu:active,
+  .nextRound:active {
+    transform: scale(0.98);
+    box-shadow: 0px -2px 0px 0px var(--insetYellow) inset;
+  }
+  .play_against_person:active {
+    transform: scale(0.98);
+    box-shadow: 0px -2px 0px 0px var(--insetLightBlue) inset;
+  }
+  /* Section to actually play the game */
+  .keypad {
+    width: 460px;
+    height: 300px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 90px 90px 90px;
+    gap: 15px;
+    text-align: center;
+    font-weight: 700;
+  }
+  .keys {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--SemiDarkNavy);
+    box-shadow: 0px -5px 0px 0px var(--inset) inset;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .keys:active {
+    transform: scale(0.98);
+    box-shadow: 0px -2px 0px 0px var(--inset) inset;
+  }
+  .scores_board {
+    margin-top: 13px;
+    width: 460px;
+    height: 45px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 100px 100px 100px;
+    gap: 15px;
+    color: var(--DarkNavy);
+  }
+  .turns {
+    margin-bottom: 13px;
+    width: 460px;
+    height: 35px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 100px 100px 100px;
+    gap: 15px;
+    color: var(--Silver);
+  }
+  #youwin,
+  #tie,
+  #cpuwin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--LightBlue);
+    border: 1px solid var(--LightBlue);
+    border-radius: 7px;
+  }
+  #youwin {
+    background-color: var(--LightBlue);
+    border: 1px solid var(--LightBlue);
+  }
+  #tie {
+    background-color: var(--Silver);
+    border: 1px solid var(--Silver);
+  }
+  #cpuwin {
+    background-color: var(--lightYellow);
+    border: 1px solid var(--lightYellow);
+  }
+  .whosturn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: var(--SemiDarkNavy);
+    box-shadow: 0px -4px 0px 0px var(--inset) inset;
+    border: none;
+    border-radius: 7px;
+  }
+  .whosturn p {
+    margin-left: 10px;
+  }
+  .restart {
+    display: flex;
+    justify-content: end;
+  }
+  .restart_game {
+    height: 33px;
+    width: 30px;
+    transition: all 0.2s;
+  }
+  .restart_game:active {
+    transform: scale(0.98);
+    box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
+  }
+  .restart_game:hover,
+  .quit:hover,
+  .cancel:hover {
+    background-color: var(--SilverHover);
+  }
+  .restart_game,
+  .quit,
+  .cancel {
+    background-color: var(--Silver);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    box-shadow: 0px -3px 0px 0px var(--insetSilver) inset;
+    border: none;
+  }
+
+  /* Modal */
+  .winnerModal,
+  .restartModal {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    backdrop-filter: blur(7px);
+  }
+
+  .winnerCard {
+    height: 266px;
+    background-color: var(--SemiDarkNavy);
+    width: 100%;
+    z-index: 100;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .restartModalCard {
+    height: 266px;
+    background-color: var(--SemiDarkNavy);
+    width: 100%;
+    z-index: 100;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .winner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .winnerHeader,
+  .restartHeader {
+    font-family: var(--Outfit);
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-left: 20px;
+    text-align: center;
+  }
+  .winnerHeader {
+    color: var(--lightYellow);
+  }
+  .restartHeader {
+    color: var(--Silver);
+  }
+  .modal_button {
+    display: flex;
+    padding-top: 30px;
+    justify-content: space-between;
+  }
+  .quit {
+    box-shadow: 0px -3px 0px 0px var(--insetSilver) inset;
+    width: 70px;
+  }
+  .cancel {
+    width: 139px;
+  }
+  .yesRestart {
+    width: 151px;
+  }
+  .nextRound {
+    width: 151px;
+  }
+  .nextRound,
+  .yesRestart {
+    box-shadow: 0px -3px 0px 0px var(--insetYellow) inset;
+    border-radius: 7px;
+    border: none;
+    background-color: var(--lightYellow);
+    margin-left: 16px;
+  }
+  .quit,
+  .nextRound,
+  .cancel,
+  .yesRestart {
+    font-family: var(--Outfit);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: var(--DarkNavy);
+    height: 52px;
+  }
+  .yesRestart:hover {
+    background-color: var(--lightYellowHover);
+  }
+  .yesRestart:active {
+    transform: scale(0.98);
+    box-shadow: 0px -2px 0px 0px var(--insetYellow) inset;
+  }
+  .quit:active,
+  .cancel:active {
+    transform: scale(0.98);
+    box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
+  }
+  .message_to_player {
+    color: var(--Silver);
+    font-family: var(--Outfit);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding-bottom: 30px;
+  }
 }
