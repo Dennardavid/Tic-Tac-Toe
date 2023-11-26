@@ -43,12 +43,13 @@ button:hover {
   text-align: center;
 }
 .pickplayer {
-  position: absolute;
-  left: 60%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 100%;
   /* display: none; */
+  /* background-color: green; */
 }
 .pickplayercard {
   margin: 20px 0px 20px 0px;
