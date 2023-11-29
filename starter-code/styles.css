@@ -30,7 +30,7 @@ body {
   letter-spacing: 1px;
 }
 span {
-  font-size: large;
+  font-size: small;
 }
 .play_game {
   display: none;
@@ -216,7 +216,7 @@ button:hover {
   align-items: center;
   flex-direction: row;
   background-color: var(--SemiDarkNavy);
-  box-shadow: 0px -4px 0px 0px var(--inset) inset;
+  box-shadow: 0px -3px 0px 0px var(--inset) inset;
   border: none;
   border-radius: 7px;
 }
@@ -382,9 +382,6 @@ button:hover {
   text-align: center;
 }
 @media only screen and (min-width: 600px) {
-  span {
-    font-size: large;
-  }
   .pickplayercard {
     width: 80%;
   }
@@ -409,12 +406,10 @@ button:hover {
   .turns {
     grid-template-columns: 130px 130px 130px;
   }
-
   /* Modal */
   .winnerHeader,
   .restartHeader {
     font-size: 40px;
-    letter-spacing: 2.5px;
     margin-left: 20px;
   }
   .modal_button {
@@ -434,7 +429,6 @@ button:hover {
     width: 50%;
   }
   .pickplayercard {
-    margin: 20px 0px 20px 0px;
     padding: 20px 0px 20px;
     width: 70%;
   }
@@ -443,79 +437,48 @@ button:hover {
     margin: 20px 0px 20px 0px;
     padding: 7px;
   }
-  #image-o {
-    width: 50%;
-  }
-  #image-x {
-    width: 50%;
-    padding: 5px 0px 5px 0px;
-    margin-right: 4px;
-  }
 
+  #image-x {
+    padding: 7px 0px 7px 0px;
+    margin-right: 5px;
+  }
   .gametype {
     width: 70%;
   }
-
   .play_against_cpu,
   .play_against_person {
     margin-top: 20px;
     padding: 15px 80px 15px 80px;
-    border-radius: 12px;
-
-    width: 100%;
-
-    font-size: 20px;
-    font-weight: 700;
-    transition: all 0.2s;
   }
   /* Section to actually play the game */
   .keypad {
     width: 460px;
     height: 300px;
-    grid-template-columns: 100px 100px 100px;
-    grid-template-rows: 90px 90px 90px;
+    grid-template-columns: 110px 110px 110px;
+    grid-template-rows: 100px 100px 100px;
   }
-
   .scores_board {
-    margin-top: 13px;
+    margin-top: 50px;
     width: 460px;
     height: 45px;
-    grid-template-columns: 100px 100px 100px;
-    gap: 15px;
+    grid-template-columns: 110px 110px 110px;
   }
   .turns {
-    margin-bottom: 13px;
+    margin-bottom: 15px;
     width: 460px;
     height: 35px;
-    grid-template-columns: 100px 100px 100px;
+    grid-template-columns: 110px 110px 110px;
     gap: 15px;
   }
-
   /* Modal */
-  .winnerCard {
-    height: 266px;
-  }
-  .restartModalCard {
-    height: 266px;
-  }
   .winnerHeader,
   .restartHeader {
-    font-size: 40px;
-    letter-spacing: 2.5px;
     margin-left: 20px;
   }
-
   .nextRound,
   .yesRestart {
     margin-left: 16px;
   }
-  .quit,
-  .nextRound,
-  .cancel,
-  .yesRestart {
-    height: 52px;
-  }
-
   .message_to_player {
     padding-bottom: 30px;
   }
