@@ -227,7 +227,7 @@ const restart = function () {
   yesRestart.addEventListener("click", function () {
     restartModal.style.visibility = "hidden";
     play_game.style.display = "none";
-    pickplayer.style.display = "block";
+    pickplayer.style.display = "flex";
     buttonX.style.backgroundColor = "transparent";
     buttonO.style.backgroundColor = "#a8bfc9";
     playerSymbol = "";
