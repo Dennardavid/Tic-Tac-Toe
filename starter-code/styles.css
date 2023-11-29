@@ -48,8 +48,6 @@ button:hover {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  /* display: none; */
-  /* background-color: green; */
 }
 .pickplayercard {
   margin: 20px 0px 20px 0px;
@@ -115,7 +113,7 @@ button:hover {
 .play_against_cpu,
 .play_against_person {
   margin-top: 20px;
-  padding: 25px 40px 25px 40px;
+  padding: 25px 30px 25px 30px;
   border-radius: 12px;
   color: var(--DarkNavy);
   text-align: center;
@@ -153,7 +151,6 @@ button:hover {
   grid-template-rows: 120px 120px 120px;
   gap: 15px;
   text-align: center;
-  /* background-color: green; */
 }
 .keys {
   display: flex;
@@ -179,7 +176,6 @@ button:hover {
   grid-template-columns: 110px 110px 110px;
   gap: 15px;
   color: var(--DarkNavy);
-  /* background-color: red; */
 }
 .turns {
   margin-bottom: 20px;
@@ -271,7 +267,6 @@ button:hover {
   visibility: hidden;
   backdrop-filter: blur(7px);
 }
-
 .winnerCard {
   height: 266px;
   background-color: var(--SemiDarkNavy);
@@ -287,7 +282,6 @@ button:hover {
   height: 266px;
   background-color: var(--SemiDarkNavy);
   width: 100%;
-  z-index: 100;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -298,28 +292,36 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
-.winnerHeader,
 .restartHeader {
   font-family: var(--Outfit);
-  font-size: 40px;
+  font-size: 35px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  letter-spacing: 2.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  margin-left: 20px;
   text-align: center;
 }
 .winnerHeader {
   color: var(--lightYellow);
+  font-family: var(--Outfit);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-left: 5px;
 }
 .restartHeader {
   color: var(--Silver);
 }
 .modal_button {
   display: flex;
-  padding-top: 30px;
+  padding-top: 25px;
   justify-content: space-between;
 }
 .quit {
@@ -329,9 +331,7 @@ button:hover {
 .cancel {
   width: 139px;
 }
-.yesRestart {
-  width: 151px;
-}
+.yesRestart,
 .nextRound {
   width: 151px;
 }
@@ -348,7 +348,7 @@ button:hover {
 .cancel,
 .yesRestart {
   font-family: var(--Outfit);
-  font-size: 16px;
+  font-size: 17px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -377,684 +377,146 @@ button:hover {
   line-height: normal;
   letter-spacing: 1px;
   text-transform: uppercase;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
+  width: 100%;
+  text-align: center;
 }
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 600px) {
+  span {
+    font-size: large;
+  }
+  .pickplayercard {
+    width: 80%;
+  }
+  .pickplayerimages {
+    width: 90%;
+    padding: 7px;
+  }
+  .gametype {
+    width: 80%;
+  }
+  /* Section to actually play the game */
+  .keypad {
+    height: 400px;
+    grid-template-columns: 130px 130px 130px;
+    grid-template-rows: 120px 120px 120px;
+  }
+  .scores_board {
+    margin-top: 15px;
+    height: 60px;
+    grid-template-columns: 130px 130px 130px;
+  }
+  .turns {
+    grid-template-columns: 130px 130px 130px;
+  }
+
+  /* Modal */
+  .winnerHeader,
+  .restartHeader {
+    font-size: 40px;
+    letter-spacing: 2.5px;
+    margin-left: 20px;
+  }
+  .modal_button {
+    padding-top: 30px;
+  }
+}
+/* Section to pick who you want to be and who you want to play with */
+@media only screen and (min-width: 1000px) {
   span {
     font-size: x-small;
   }
   .pickplayer {
     position: absolute;
-    left: 58%;
+    left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     width: 50%;
   }
   .pickplayercard {
     margin: 20px 0px 20px 0px;
-    background-color: var(--SemiDarkNavy);
-    display: flex;
-    justify-content: center;
-    border-radius: 12px;
-    align-items: center;
-    flex-direction: column;
     padding: 20px 0px 20px;
     width: 70%;
-    box-shadow: 0px -5px 0px 0px var(--inset) inset;
-    color: var(--Silver);
-    line-height: 20px;
   }
   .pickplayerimages {
-    display: flex;
-    background-color: var(--DarkNavy);
     width: 90%;
-    border-radius: 10px;
     margin: 20px 0px 20px 0px;
     padding: 7px;
   }
   #image-o {
-    background-color: var(--Silver);
     width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    border: none;
   }
   #image-x {
     width: 50%;
-    display: flex;
     padding: 5px 0px 5px 0px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
     margin-right: 4px;
-    transition: ease-in-out 0.4s;
-    border: none;
-    background: transparent;
   }
-  #image-x:hover {
-    background: rgba(168, 191, 201, 0.05);
-  }
+
   .gametype {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 70%;
   }
-  .play_against_cpu {
-    background-color: var(--lightYellow);
-    box-shadow: 0px -5px 0px 0px var(--insetYellow) inset;
-  }
-  .play_against_person {
-    background-color: var(--LightBlue);
-    box-shadow: 0px -5px 0px 0px var(--insetLightBlue) inset;
-  }
+
   .play_against_cpu,
   .play_against_person {
     margin-top: 20px;
     padding: 15px 80px 15px 80px;
     border-radius: 12px;
-    color: var(--DarkNavy);
+
     width: 100%;
-    text-align: center;
-    line-height: 25px;
-    transition: ease-in-out 0.4s;
-    border: none;
-    font-family: var(--Outfit);
+
     font-size: 20px;
     font-weight: 700;
     transition: all 0.2s;
-  }
-  .play_against_cpu:hover,
-  .nextRound:hover {
-    background-color: var(--lightYellowHover);
-  }
-  .play_against_person:hover {
-    background-color: var(--lightBlueHover);
-  }
-  .play_against_cpu:active,
-  .nextRound:active {
-    transform: scale(0.98);
-    box-shadow: 0px -2px 0px 0px var(--insetYellow) inset;
-  }
-  .play_against_person:active {
-    transform: scale(0.98);
-    box-shadow: 0px -2px 0px 0px var(--insetLightBlue) inset;
   }
   /* Section to actually play the game */
   .keypad {
     width: 460px;
     height: 300px;
-    display: grid;
-    justify-content: center;
     grid-template-columns: 100px 100px 100px;
     grid-template-rows: 90px 90px 90px;
-    gap: 15px;
-    text-align: center;
-    font-weight: 700;
   }
-  .keys {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--SemiDarkNavy);
-    box-shadow: 0px -5px 0px 0px var(--inset) inset;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .keys:active {
-    transform: scale(0.98);
-    box-shadow: 0px -2px 0px 0px var(--inset) inset;
-  }
+
   .scores_board {
     margin-top: 13px;
     width: 460px;
     height: 45px;
-    display: grid;
-    justify-content: center;
     grid-template-columns: 100px 100px 100px;
     gap: 15px;
-    color: var(--DarkNavy);
   }
   .turns {
     margin-bottom: 13px;
     width: 460px;
     height: 35px;
-    display: grid;
-    justify-content: center;
     grid-template-columns: 100px 100px 100px;
     gap: 15px;
-    color: var(--Silver);
-  }
-  #youwin,
-  #tie,
-  #cpuwin {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: var(--LightBlue);
-    border: 1px solid var(--LightBlue);
-    border-radius: 7px;
-  }
-  #youwin {
-    background-color: var(--LightBlue);
-    border: 1px solid var(--LightBlue);
-  }
-  #tie {
-    background-color: var(--Silver);
-    border: 1px solid var(--Silver);
-  }
-  #cpuwin {
-    background-color: var(--lightYellow);
-    border: 1px solid var(--lightYellow);
-  }
-  .whosturn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    background-color: var(--SemiDarkNavy);
-    box-shadow: 0px -4px 0px 0px var(--inset) inset;
-    border: none;
-    border-radius: 7px;
-  }
-  .whosturn p {
-    margin-left: 10px;
-  }
-  .restart {
-    display: flex;
-    justify-content: end;
-  }
-  .restart_game {
-    height: 33px;
-    width: 30px;
-    transition: all 0.2s;
-  }
-  .restart_game:active {
-    transform: scale(0.98);
-    box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
-  }
-  .restart_game:hover,
-  .quit:hover,
-  .cancel:hover {
-    background-color: var(--SilverHover);
-  }
-  .restart_game,
-  .quit,
-  .cancel {
-    background-color: var(--Silver);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 7px;
-    box-shadow: 0px -3px 0px 0px var(--insetSilver) inset;
-    border: none;
   }
 
   /* Modal */
-  .winnerModal,
-  .restartModal {
-    height: 100vh;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
-    backdrop-filter: blur(7px);
-  }
-
   .winnerCard {
     height: 266px;
-    background-color: var(--SemiDarkNavy);
-    width: 100%;
-    z-index: 100;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
   }
   .restartModalCard {
     height: 266px;
-    background-color: var(--SemiDarkNavy);
-    width: 100%;
-    z-index: 100;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  .winner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
   .winnerHeader,
   .restartHeader {
-    font-family: var(--Outfit);
     font-size: 40px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     letter-spacing: 2.5px;
-    text-transform: uppercase;
     margin-left: 20px;
-    text-align: center;
   }
-  .winnerHeader {
-    color: var(--lightYellow);
-  }
-  .restartHeader {
-    color: var(--Silver);
-  }
-  .modal_button {
-    display: flex;
-    padding-top: 30px;
-    justify-content: space-between;
-  }
-  .quit {
-    box-shadow: 0px -3px 0px 0px var(--insetSilver) inset;
-    width: 70px;
-  }
-  .cancel {
-    width: 139px;
-  }
-  .yesRestart {
-    width: 151px;
-  }
-  .nextRound {
-    width: 151px;
-  }
+
   .nextRound,
   .yesRestart {
-    box-shadow: 0px -3px 0px 0px var(--insetYellow) inset;
-    border-radius: 7px;
-    border: none;
-    background-color: var(--lightYellow);
     margin-left: 16px;
   }
   .quit,
   .nextRound,
   .cancel,
   .yesRestart {
-    font-family: var(--Outfit);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: 1px;
-    color: var(--DarkNavy);
     height: 52px;
   }
-  .yesRestart:hover {
-    background-color: var(--lightYellowHover);
-  }
-  .yesRestart:active {
-    transform: scale(0.98);
-    box-shadow: 0px -2px 0px 0px var(--insetYellow) inset;
-  }
-  .quit:active,
-  .cancel:active {
-    transform: scale(0.98);
-    box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
-  }
-  .message_to_player {
-    color: var(--Silver);
-    font-family: var(--Outfit);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding-bottom: 30px;
-  }
-}
-/* Section to pick who you want to be and who you want to play with */
-@media only screen and (min-width: 1000px) {
-  .pickplayer {
-    position: absolute;
-    left: 58%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
-    /* display: none; */
-  }
-  .pickplayercard {
-    margin: 20px 0px 20px 0px;
-    background-color: var(--SemiDarkNavy);
-    display: flex;
-    justify-content: center;
-    border-radius: 12px;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px 0px 20px;
-    width: 70%;
-    box-shadow: 0px -5px 0px 0px var(--inset) inset;
-    color: var(--Silver);
-    line-height: 20px;
-  }
-  .pickplayerimages {
-    display: flex;
-    background-color: var(--DarkNavy);
-    width: 90%;
-    border-radius: 10px;
-    margin: 20px 0px 20px 0px;
-    padding: 7px;
-  }
-  #image-o {
-    background-color: var(--Silver);
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    border: none;
-  }
-  #image-x {
-    width: 50%;
-    display: flex;
-    padding: 5px 0px 5px 0px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    margin-right: 4px;
-    transition: ease-in-out 0.4s;
-    border: none;
-    background: transparent;
-  }
-  #image-x:hover {
-    background: rgba(168, 191, 201, 0.05);
-  }
-  .gametype {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-  }
-  .play_against_cpu {
-    background-color: var(--lightYellow);
-    box-shadow: 0px -5px 0px 0px var(--insetYellow) inset;
-  }
-  .play_against_person {
-    background-color: var(--LightBlue);
-    box-shadow: 0px -5px 0px 0px var(--insetLightBlue) inset;
-  }
-  .play_against_cpu,
-  .play_against_person {
-    margin-top: 20px;
-    padding: 15px 80px 15px 80px;
-    border-radius: 12px;
-    color: var(--DarkNavy);
-    width: 100%;
-    text-align: center;
-    line-height: 25px;
-    transition: ease-in-out 0.4s;
-    border: none;
-    font-family: var(--Outfit);
-    font-size: 20px;
-    font-weight: 700;
-    transition: all 0.2s;
-  }
-  .play_against_cpu:hover,
-  .nextRound:hover {
-    background-color: var(--lightYellowHover);
-  }
-  .play_against_person:hover {
-    background-color: var(--lightBlueHover);
-  }
-  .play_against_cpu:active,
-  .nextRound:active {
-    transform: scale(0.98);
-    box-shadow: 0px -2px 0px 0px var(--insetYellow) inset;
-  }
-  .play_against_person:active {
-    transform: scale(0.98);
-    box-shadow: 0px -2px 0px 0px var(--insetLightBlue) inset;
-  }
-  /* Section to actually play the game */
-  .keypad {
-    width: 460px;
-    height: 300px;
-    display: grid;
-    justify-content: center;
-    grid-template-columns: 100px 100px 100px;
-    grid-template-rows: 90px 90px 90px;
-    gap: 15px;
-    text-align: center;
-    font-weight: 700;
-  }
-  .keys {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--SemiDarkNavy);
-    box-shadow: 0px -5px 0px 0px var(--inset) inset;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .keys:active {
-    transform: scale(0.98);
-    box-shadow: 0px -2px 0px 0px var(--inset) inset;
-  }
-  .scores_board {
-    margin-top: 13px;
-    width: 460px;
-    height: 45px;
-    display: grid;
-    justify-content: center;
-    grid-template-columns: 100px 100px 100px;
-    gap: 15px;
-    color: var(--DarkNavy);
-  }
-  .turns {
-    margin-bottom: 13px;
-    width: 460px;
-    height: 35px;
-    display: grid;
-    justify-content: center;
-    grid-template-columns: 100px 100px 100px;
-    gap: 15px;
-    color: var(--Silver);
-  }
-  #youwin,
-  #tie,
-  #cpuwin {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: var(--LightBlue);
-    border: 1px solid var(--LightBlue);
-    border-radius: 7px;
-  }
-  #youwin {
-    background-color: var(--LightBlue);
-    border: 1px solid var(--LightBlue);
-  }
-  #tie {
-    background-color: var(--Silver);
-    border: 1px solid var(--Silver);
-  }
-  #cpuwin {
-    background-color: var(--lightYellow);
-    border: 1px solid var(--lightYellow);
-  }
-  .whosturn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    background-color: var(--SemiDarkNavy);
-    box-shadow: 0px -4px 0px 0px var(--inset) inset;
-    border: none;
-    border-radius: 7px;
-  }
-  .whosturn p {
-    margin-left: 10px;
-  }
-  .restart {
-    display: flex;
-    justify-content: end;
-  }
-  .restart_game {
-    height: 33px;
-    width: 30px;
-    transition: all 0.2s;
-  }
-  .restart_game:active {
-    transform: scale(0.98);
-    box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
-  }
-  .restart_game:hover,
-  .quit:hover,
-  .cancel:hover {
-    background-color: var(--SilverHover);
-  }
-  .restart_game,
-  .quit,
-  .cancel {
-    background-color: var(--Silver);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 7px;
-    box-shadow: 0px -3px 0px 0px var(--insetSilver) inset;
-    border: none;
-  }
 
-  /* Modal */
-  .winnerModal,
-  .restartModal {
-    height: 100vh;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
-    backdrop-filter: blur(7px);
-  }
-
-  .winnerCard {
-    height: 266px;
-    background-color: var(--SemiDarkNavy);
-    width: 100%;
-    z-index: 100;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  .restartModalCard {
-    height: 266px;
-    background-color: var(--SemiDarkNavy);
-    width: 100%;
-    z-index: 100;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  .winner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .winnerHeader,
-  .restartHeader {
-    font-family: var(--Outfit);
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    margin-left: 20px;
-    text-align: center;
-  }
-  .winnerHeader {
-    color: var(--lightYellow);
-  }
-  .restartHeader {
-    color: var(--Silver);
-  }
-  .modal_button {
-    display: flex;
-    padding-top: 30px;
-    justify-content: space-between;
-  }
-  .quit {
-    box-shadow: 0px -3px 0px 0px var(--insetSilver) inset;
-    width: 70px;
-  }
-  .cancel {
-    width: 139px;
-  }
-  .yesRestart {
-    width: 151px;
-  }
-  .nextRound {
-    width: 151px;
-  }
-  .nextRound,
-  .yesRestart {
-    box-shadow: 0px -3px 0px 0px var(--insetYellow) inset;
-    border-radius: 7px;
-    border: none;
-    background-color: var(--lightYellow);
-    margin-left: 16px;
-  }
-  .quit,
-  .nextRound,
-  .cancel,
-  .yesRestart {
-    font-family: var(--Outfit);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: 1px;
-    color: var(--DarkNavy);
-    height: 52px;
-  }
-  .yesRestart:hover {
-    background-color: var(--lightYellowHover);
-  }
-  .yesRestart:active {
-    transform: scale(0.98);
-    box-shadow: 0px -2px 0px 0px var(--insetYellow) inset;
-  }
-  .quit:active,
-  .cancel:active {
-    transform: scale(0.98);
-    box-shadow: 0px -2px 0px 0px var(--insetSilver) inset;
-  }
   .message_to_player {
-    color: var(--Silver);
-    font-family: var(--Outfit);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: 1px;
-    text-transform: uppercase;
     padding-bottom: 30px;
   }
 }
