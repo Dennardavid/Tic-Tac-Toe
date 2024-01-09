@@ -20,6 +20,7 @@ const winnerModal = document.querySelector(".winnerModal");
 const restartModal = document.querySelector(".restartModal");
 const btnNextRound = document.querySelector(".nextRound");
 let playerSymbol = "";
+let cpuSymbol = "";
 const scoreForX = document.querySelector(".scoreForX");
 const scoreForO = document.querySelector(".scoreForO");
 const tieScore = document.querySelector(".tie-score");
@@ -32,31 +33,27 @@ let xScore = 0;
 let oScore = 0;
 let tiedScore = 0;
 let winMessage = "";
+const ImageforX = "./starter-code/assets/icon-x.png";
+const ImageforO = "./starter-code/assets/icon-o.png";
 
 // Set the player to X
 buttonX.addEventListener("click", function () {
   /* Set current player to X */
   playerSymbol = "X";
-
+  cpuSymbol = "O";
   // Set the background so that two backgrounds can't be the same at once when selecting a player
   buttonX.style.backgroundColor = "#60b347";
   buttonO.style.backgroundColor = "#a8bfc9";
-  console.log(playerSymbol);
-
-  return playerSymbol;
 });
 
-console.log(playerSymbol);
 buttonO.addEventListener("click", function () {
   /* Set current player to O */
   playerSymbol = "O";
+  cpuSymbol = "X";
 
   // Set the background so that two backgrounds can't be the same at once when selecting a player
   buttonO.style.backgroundColor = "#60b347";
   buttonX.style.backgroundColor = "transparent";
-  console.log(playerSymbol);
-
-  return playerSymbol;
 });
 
 const checkIfPlayerSelectedSymbol = function () {
@@ -71,7 +68,6 @@ const checkIfPlayerSelectedSymbol = function () {
 /* Funtion to switch to playing pc mode */
 const playCpu = function () {
   checkIfPlayerSelectedSymbol();
-
   displayOutline();
   restartTheModal();
   quitGame();
@@ -81,15 +77,13 @@ const playCpu = function () {
 
   gameButtons.forEach(function (button, index) {
     button.addEventListener("click", function () {
-      let buttonImage = button.querySelector(".gameimg");
-      if (buttonImage.getAttribute("src") === "") {
-        buttonImage.setAttribute(
+      let CurrentButtonImage = button.querySelector(".gameimg");
+      if (CurrentButtonImage.getAttribute("src") === "") {
+        CurrentButtonImage.setAttribute(
           "src",
-          playerSymbol === "X"
-            ? "./starter-code/assets/icon-x.png"
-            : "./starter-code/assets/icon-o.png"
+          playerSymbol === "X" ? `${ImageforX}` : `${ImageforO}`
         );
-        buttonImage.setAttribute(
+        CurrentButtonImage.setAttribute(
           "alt",
           playerSymbol === "X" ? "Player X" : "Player O"
         );
@@ -97,6 +91,7 @@ const playCpu = function () {
         let row = Math.floor(index / 3);
         let col = index % 3;
         board[row][col] = playerSymbol;
+        console.log(board);
 
         // Check for player's win
         checkWinner(playerSymbol);
@@ -109,11 +104,6 @@ const playCpu = function () {
 };
 
 function makeCpuMove() {
-  // Assume opposite symbol of the player
-  console.log(playerSymbol);
-  let cpuSymbol;
-  playerSymbol === "X" ? (cpuSymbol = "O") : (cpuSymbol = "X");
-  console.log(cpuSymbol);
   // Check for CPU win and make a move
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
@@ -124,15 +114,12 @@ function makeCpuMove() {
         // Check if CPU wins
         if (checkWinner(cpuSymbol)) {
           // Display CPU move on the board
-          console.log(board);
           let cpuMoveIndex = i * 3 + j;
           let cpuMoveButton = gameButtons[cpuMoveIndex];
           let cpuMoveImage = cpuMoveButton.querySelector(".gameimg");
           cpuMoveImage.setAttribute(
             "src",
-            cpuSymbol === "X"
-              ? "./starter-code/assets/icon-x.png"
-              : "./starter-code/assets/icon-o.png"
+            cpuSymbol === "X" ? `${ImageforX}` : `${ImageforO}`
           );
           cpuMoveImage.setAttribute(
             "alt",
@@ -140,7 +127,7 @@ function makeCpuMove() {
           );
 
           // Switch player after CPU move
-          console.log(playerSymbol);
+          // console.log(playerSymbol);
           return;
         }
 
@@ -166,9 +153,7 @@ function makeCpuMove() {
           let cpuMoveImage = cpuMoveButton.querySelector(".gameimg");
           cpuMoveImage.setAttribute(
             "src",
-            cpuSymbol === "X"
-              ? "./starter-code/assets/icon-x.png"
-              : "./starter-code/assets/icon-o.png"
+            cpuSymbol === "X" ? `${ImageforX}` : `${ImageforO}`
           );
           cpuMoveImage.setAttribute(
             "alt",
@@ -207,9 +192,7 @@ function makeCpuMove() {
     // Display CPU move on the board
     cpuMoveImage.setAttribute(
       "src",
-      cpuSymbol === "X"
-        ? "./starter-code/assets/icon-x.png"
-        : "./starter-code/assets/icon-o.png"
+      cpuSymbol === "X" ? `${ImageforX}` : `${ImageforO}`
     );
     cpuMoveImage.setAttribute(
       "alt",
@@ -242,15 +225,13 @@ function addClickListenersToButtons() {
   gameButtons.forEach(function (button, index) {
     button.addEventListener("click", function () {
       /* Codes To display the image on the button */
-      let buttonImage = button.querySelector(".gameimg");
-      if (buttonImage.getAttribute("src") === "") {
-        buttonImage.setAttribute(
+      let CurrentButtonImage = button.querySelector(".gameimg");
+      if (CurrentButtonImage.getAttribute("src") === "") {
+        CurrentButtonImage.setAttribute(
           "src",
-          playerSymbol === "X"
-            ? "./starter-code/assets/icon-x.png"
-            : "./starter-code/assets/icon-o.png"
+          playerSymbol === "X" ? `${ImageforX}` : `${ImageforO}`
         );
-        buttonImage.setAttribute(
+        CurrentButtonImage.setAttribute(
           "alt",
           playerSymbol === "X" ? "Player X" : "Player O"
         );
@@ -260,7 +241,6 @@ function addClickListenersToButtons() {
         let col = index % 3;
         board[row][col] = playerSymbol;
 
-        console.log(playerSymbol);
         /* Function call to check winner */
         checkWinner(playerSymbol);
         switchPlayer();
@@ -272,14 +252,14 @@ function addClickListenersToButtons() {
 /* Function to display outline on hover of button */
 function displayOutline() {
   gameButtons.forEach(function (button) {
-    let buttonImage = button.querySelector(".gameimg");
+    let CurrentButtonImage = button.querySelector(".gameimg");
     button.addEventListener("mouseenter", function () {
-      if (buttonImage.getAttribute("src") !== "") {
-        let symbol = buttonImage.getAttribute("src").includes("icon-x")
+      if (CurrentButtonImage.getAttribute("src") !== "") {
+        let symbol = CurrentButtonImage.getAttribute("src").includes("icon-x")
           ? "X"
           : "O";
 
-        buttonImage.setAttribute(
+        CurrentButtonImage.setAttribute(
           "src",
           symbol === "X"
             ? "./starter-code/assets/icon-x-outline.png"
@@ -290,16 +270,14 @@ function displayOutline() {
 
     /* Function to return to original symbol on mouse leave */
     button.addEventListener("mouseleave", function () {
-      if (buttonImage.getAttribute("src") !== "") {
-        let symbol = buttonImage.getAttribute("src").includes("icon-x")
+      if (CurrentButtonImage.getAttribute("src") !== "") {
+        let symbol = CurrentButtonImage.getAttribute("src").includes("icon-x")
           ? "X"
           : "O";
 
-        buttonImage.setAttribute(
+        CurrentButtonImage.setAttribute(
           "src",
-          symbol === "X"
-            ? "./starter-code/assets/icon-x.png"
-            : "./starter-code/assets/icon-o.png"
+          symbol === "X" ? `${ImageforX}` : `${ImageforO}`
         );
       }
     });
@@ -326,9 +304,9 @@ const restartTheModal = function () {
 
 const resetButtons = function () {
   gameButtons.forEach(function (button) {
-    let buttonImage = button.querySelector(".gameimg");
-    buttonImage.setAttribute("src", playerSymbol === "X" ? "" : "");
-    buttonImage.setAttribute("alt", playerSymbol === "X" ? "" : "");
+    let CurrentButtonImage = button.querySelector(".gameimg");
+    CurrentButtonImage.setAttribute("src", playerSymbol === "X" ? "" : "");
+    CurrentButtonImage.setAttribute("alt", playerSymbol === "X" ? "" : "");
   });
   board = [
     ["", "", ""],
@@ -341,14 +319,10 @@ const resetButtons = function () {
 const restart = function () {
   yesRestart.addEventListener("click", function () {
     restartModal.style.visibility = "hidden";
-    play_game.style.display = "none";
-    pickplayer.style.display = "flex";
-    buttonX.style.backgroundColor = "transparent";
-    buttonO.style.backgroundColor = "#a8bfc9";
-    playerSymbol = "";
     resetButtons();
-    playerTurn.setAttribute("src", "./starter-code/assets/x-turn.png");
+    playerTurn.setAttribute("src", `${ImageforX}`);
     initializeScoreBoard();
+    playerSymbol = playerSymbol;
   });
 };
 
@@ -356,9 +330,21 @@ const restart = function () {
 const quitGame = function () {
   quit.addEventListener("click", function () {
     winnerModal.style.visibility = "hidden";
-    restart();
+    play_game.style.display = "none";
+    pickplayer.style.display = "flex";
+    buttonX.style.backgroundColor = "transparent";
+    buttonO.style.backgroundColor = "#a8bfc9";
+    playerSymbol = "";
+    resetButtons();
+    playerTurn.setAttribute("src", `${ImageforX}`);
+    initializeScoreBoard();
   });
 };
+
+function setButtonImage(buttonImage, symbol) {
+  buttonImage.setAttribute("src", symbol === "X" ? ImageforX : ImageforO);
+  buttonImage.setAttribute("alt", symbol === "X" ? "Player X" : "Player O");
+}
 
 const initializeScoreBoard = function () {
   xScore = 0;
@@ -374,11 +360,11 @@ const nextRound = function (playerSymbol) {
     closeWinnerModal();
     resetButtons();
     gameButtons.forEach(function (button) {
-      let buttonImage = button.querySelector(".gameimg");
-      buttonImage.setAttribute("src", playerSymbol === "X" ? "" : "");
-      buttonImage.setAttribute("alt", playerSymbol === "X" ? "" : "");
+      let CurrentButtonImage = button.querySelector(".gameimg");
+      CurrentButtonImage.setAttribute("src", playerSymbol === "X" ? "" : "");
+      CurrentButtonImage.setAttribute("alt", playerSymbol === "X" ? "" : "");
     });
-    playerTurn.setAttribute("src", "./starter-code/assets/x-turn.png");
+    playerTurn.setAttribute("src", `${ImageforX}`);
     playerSymbol = playerSymbol;
   });
 };
@@ -393,13 +379,12 @@ const closeWinnerModal = function () {
 };
 
 const xWon = function () {
-  modal_pic.setAttribute("src", "./starter-code/assets/icon-x.png");
+  modal_pic.setAttribute("src", `${ImageforX}`);
   modal_pic.style.display = "block";
   modal_pic.style.marginRight = "15px";
   winnerHeader.style.color = "#31c3bd";
   winnerModal.style.visibility = "visible";
-  winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
-  console.log(winMessage);
+  winMessage = playerSymbol === "X" ? "PLAYER ONE WON!" : "PLAYER TWO WON!";
   message_to_player.textContent = winMessage;
   winnerHeader.textContent = "TAKES THE ROUND";
   xScore = xScore + 1;
@@ -407,13 +392,12 @@ const xWon = function () {
 };
 
 const oWon = function () {
-  modal_pic.setAttribute("src", "./starter-code/assets/icon-o.png");
+  modal_pic.setAttribute("src", `${ImageforO}`);
   modal_pic.style.display = "block";
   modal_pic.style.marginRight = "10px";
   winnerModal.style.visibility = "visible";
   winnerHeader.style.color = "#f2b137";
-  winMessage = playerSymbol === "X" ? "YOU WON!" : "OH NO, YOU LOST…";
-  console.log(winMessage);
+  winMessage = playerSymbol === "X" ? "PLAYER ONE WON!" : "PLAYER TWO WON!";
   message_to_player.textContent = winMessage;
   winnerHeader.textContent = "TAKES THE ROUND";
   oScore = oScore + 1;
