@@ -126,8 +126,6 @@ function makeCpuMove() {
             cpuSymbol === "X" ? "Player X" : "Player O"
           );
 
-          // Switch player after CPU move
-          // console.log(playerSymbol);
           return;
         }
 
@@ -160,8 +158,9 @@ function makeCpuMove() {
             cpuSymbol === "X" ? "Player X" : "Player O"
           );
 
-          // Switch player after CPU move
-          console.log(playerSymbol);
+          // Undo the simulated move
+          board[i][j] = "";
+
           return;
         }
 
@@ -199,7 +198,6 @@ function makeCpuMove() {
       cpuSymbol === "X" ? "Player X" : "Player O"
     );
 
-    // Switch player after CPU move
     console.log(playerSymbol);
   }
 }
@@ -364,7 +362,7 @@ const nextRound = function (playerSymbol) {
       CurrentButtonImage.setAttribute("src", playerSymbol === "X" ? "" : "");
       CurrentButtonImage.setAttribute("alt", playerSymbol === "X" ? "" : "");
     });
-    playerTurn.setAttribute("src", `${ImageforX}`);
+    playerTurn.setAttribute("src", "./starter-code/assets/x-turn.png");
     playerSymbol = playerSymbol;
   });
 };
