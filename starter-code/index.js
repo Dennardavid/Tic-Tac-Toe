@@ -130,47 +130,10 @@ function makeCpuMove() {
         }
 
         // Undo the simulated move
-        board[i][j] = "";
+        // board[i][j] = "";
       }
     }
   }
-
-  // If CPU can't win, try to block the player
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      if (board[i][j] === "") {
-        // Simulate a move
-        board[i][j] = playerSymbol;
-
-        // Check if player wins
-        if (checkWinner(playerSymbol)) {
-          // Display CPU move on the board
-          console.log(board);
-          let cpuMoveIndex = i * 3 + j;
-          let cpuMoveButton = gameButtons[cpuMoveIndex];
-          let cpuMoveImage = cpuMoveButton.querySelector(".gameimg");
-          cpuMoveImage.setAttribute(
-            "src",
-            cpuSymbol === "X" ? `${ImageforX}` : `${ImageforO}`
-          );
-          cpuMoveImage.setAttribute(
-            "alt",
-            cpuSymbol === "X" ? "Player X" : "Player O"
-          );
-
-          // Undo the simulated move
-          board[i][j] = "";
-
-          return;
-        }
-
-        // Undo the simulated move
-        board[i][j] = "";
-      }
-    }
-  }
-
-  // If neither winning nor blocking, make a random move
   let availableMoves = [];
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
@@ -197,11 +160,10 @@ function makeCpuMove() {
       "alt",
       cpuSymbol === "X" ? "Player X" : "Player O"
     );
-
-    console.log(playerSymbol);
+    checkWinner(playerSymbol);
+    // console.log(playerSymbol);
   }
 }
-
 play_against_cpu.addEventListener("click", playCpu);
 
 /* Funtion to switch to playing with another player mode */
@@ -318,7 +280,7 @@ const restart = function () {
   yesRestart.addEventListener("click", function () {
     restartModal.style.visibility = "hidden";
     resetButtons();
-    playerTurn.setAttribute("src", `${ImageforX}`);
+    playerTurn.setAttribute("src", "./starter-code/assets/x-turn.png");
     initializeScoreBoard();
     playerSymbol = playerSymbol;
   });
@@ -334,7 +296,7 @@ const quitGame = function () {
     buttonO.style.backgroundColor = "#a8bfc9";
     playerSymbol = "";
     resetButtons();
-    playerTurn.setAttribute("src", `${ImageforX}`);
+    playerTurn.setAttribute("src", "./starter-code/assets/x-turn.png");
     initializeScoreBoard();
   });
 };
