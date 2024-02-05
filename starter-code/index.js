@@ -97,7 +97,7 @@ const playCpu = function () {
         checkWinner(playerSymbol);
 
         // Execute CPU move
-        setTimeout(makeCpuMove, 800);
+        setTimeout(makeCpuMove, 1000);
       }
     });
   });
@@ -126,44 +126,95 @@ function makeCpuMove() {
             cpuSymbol === "X" ? "Player X" : "Player O"
           );
 
+          // Switch player after CPU move
+          // switchPlayer();
+
+          if (checkWinner(cpuSymbol)) {
+            // Display CPU move on the board
+            displayCpuMove(i, j);
+            return;
+          }
+          // return;
+        }
+
+        // Undo the simulated move
+        board[i][j] = "";
+      }
+    }
+  }
+
+  // If CPU can't win, try to block the player
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (board[i][j] === "") {
+        // Simulate a move
+        board[i][j] = playerSymbol;
+
+        // Check if player wins
+        if (checkWinner(playerSymbol)) {
+          // Display CPU move on the board
+          let cpuMoveIndex = i * 3 + j;
+          let cpuMoveButton = gameButtons[cpuMoveIndex];
+          let cpuMoveImage = cpuMoveButton.querySelector(".gameimg");
+          cpuMoveImage.setAttribute(
+            "src",
+            cpuSymbol === "X" ? `${ImageforX}` : `${ImageforO}`
+          );
+          cpuMoveImage.setAttribute(
+            "alt",
+            cpuSymbol === "X" ? "Player X" : "Player O"
+          );
+
+          // Switch player after CPU move
+          switchPlayer();
+          if (checkWinner(playerSymbol)) {
+            // Display CPU move on the board
+            displayCpuMove(i, j);
+            return;
+          }
           return;
         }
 
         // Undo the simulated move
-        // board[i][j] = "";
+        board[i][j] = "";
       }
     }
-  }
-  let availableMoves = [];
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      if (board[i][j] === "") {
-        availableMoves.push({ row: i, col: j });
+
+    // If neither winning nor blocking, make a random move
+    let availableMoves = [];
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (board[i][j] === "") {
+          availableMoves.push({ row: i, col: j });
+        }
       }
     }
-  }
 
-  if (availableMoves.length > 0) {
-    // Choose a random move
-    let randomMove =
-      availableMoves[Math.floor(Math.random() * availableMoves.length)];
-    let cpuMoveIndex = randomMove.row * 3 + randomMove.col;
-    let cpuMoveButton = gameButtons[cpuMoveIndex];
-    let cpuMoveImage = cpuMoveButton.querySelector(".gameimg");
+    if (availableMoves.length > 0) {
+      // Choose a random move
+      let randomMove =
+        availableMoves[Math.floor(Math.random() * availableMoves.length)];
+      let cpuMoveIndex = randomMove.row * 3 + randomMove.col;
+      let cpuMoveButton = gameButtons[cpuMoveIndex];
+      let cpuMoveImage = cpuMoveButton.querySelector(".gameimg");
 
-    // Display CPU move on the board
-    cpuMoveImage.setAttribute(
-      "src",
-      cpuSymbol === "X" ? `${ImageforX}` : `${ImageforO}`
-    );
-    cpuMoveImage.setAttribute(
-      "alt",
-      cpuSymbol === "X" ? "Player X" : "Player O"
-    );
-    checkWinner(playerSymbol);
-    // console.log(playerSymbol);
+      // Display CPU move on the board
+      cpuMoveImage.setAttribute(
+        "src",
+        cpuSymbol === "X" ? `${ImageforX}` : `${ImageforO}`
+      );
+      cpuMoveImage.setAttribute(
+        "alt",
+        cpuSymbol === "X" ? "Player X" : "Player O"
+      );
+
+      // Switch player after CPU move
+      switchPlayer();
+    }
   }
 }
+
+/* Function call to play cpu */
 play_against_cpu.addEventListener("click", playCpu);
 
 /* Funtion to switch to playing with another player mode */
@@ -178,6 +229,7 @@ const playPerson = function () {
   cancel.addEventListener("click", closeModal);
 };
 
+/* Function call to play person */
 play_against_person.addEventListener("click", playPerson);
 
 /* Function to listen to all the buttons on the keypad */
