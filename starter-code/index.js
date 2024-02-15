@@ -326,119 +326,176 @@ function checkWinner(playerSymbol, board) {
   }
 }
 
-/* Funtion to switch to playing pc mode */
-// function playCpu() {
-//   checkIfPlayerSelectedSymbol();
-//   displayOutline();
-//   restartTheModal();
-//   quitGame();
-//   restart();
-//   nextRound();
-//   noCancel();
+// Funtion to switch to playing pc mode
+function playCpu() {
+  checkIfPlayerSelectedSymbol();
+  displayOutline();
+  restartTheModal();
+  quitGame();
+  restart();
+  nextRound();
+  noCancel();
 
-//   gameButtons.forEach(function (button, index) {
-//     button.addEventListener("click", function () {
-//       let CurrentButtonImage = button.querySelector(".gameimg");
-//       if (CurrentButtonImage.getAttribute("src") === "") {
-//         CurrentButtonImage.setAttribute(
-//           "src",
-//           playerSymbol === "X" ? `${ImageforX}` : `${ImageforO}`
-//         );
-//         CurrentButtonImage.setAttribute(
-//           "alt",
-//           playerSymbol === "X" ? "Player X" : "Player O"
-//         );
+  gameButtons.forEach(function (button, index) {
+    button.addEventListener("click", function () {
+      let CurrentButtonImage = button.querySelector(".gameimg");
+      if (CurrentButtonImage.getAttribute("src") === "") {
+        CurrentButtonImage.setAttribute(
+          "src",
+          playerSymbol === "X" ? `${ImageforX}` : `${ImageforO}`
+        );
+        CurrentButtonImage.setAttribute(
+          "alt",
+          playerSymbol === "X" ? "Player X" : "Player O"
+        );
 
-//         board[index] = playerSymbol;
-//         console.log(board);
+        board[index] = playerSymbol;
+        console.log(board);
 
-//         // Check for player's win
-//         checkWinner(playerSymbol, board);
-//         // switchPlayer();
+        // Check for player's win
+        checkWinner(playerSymbol, board);
+        // switchPlayer();
 
-//         // Execute CPU move
-//         setTimeout(function () {
-//           makeCpuMove(board, playerSymbol);
-//         }, 500);
-//       }
-//     });
-//   });
-// }
-// function emptyBoardSpaces(updatedBoard) {
-//   let emptySpace = [];
-//   for (let i = 0; i < updatedBoard.length; i++) {
-//     if (updatedBoard[i] !== "X" && updatedBoard[i] !== "O") {
-//       emptySpace.push(i);
-//     }
-//   }
-//   console.log(emptySpace);
-//   return emptySpace;
-// }
+        // Execute CPU move
+        setTimeout(function () {
+          makeCpuMove(board, playerSymbol);
+        }, 500);
+      }
+    });
+  });
+}
 
-// function makeCpuMove(updatedBoard, playerSymbol) {
-//   let emptySpots = emptyBoardSpaces(updatedBoard);
+function emptyBoardSpaces(updatedBoard) {
+  let emptySpace = [];
+  for (let i = 0; i < updatedBoard.length; i++) {
+    if (updatedBoard[i] !== "X" && updatedBoard[i] !== "O") {
+      emptySpace.push(i);
+    }
+  }
+  console.log(emptySpace);
+  return emptySpace;
+}
 
-//   if (checkWinner(playerSymbol, updatedBoard)) {
-//     return { score: -10 };
-//   } else if (checkWinner(cpuSymbol, updatedBoard)) {
-//     return { score: 10 };
-//   } else if (emptySpots.length === 0) {
-//     return { score: 0 };
-//   }
+emptyBoardSpaces(board);
 
-//   let moves = [];
+// Minimax algorithm
+function minimax(
+  board,
+  depth,
+  alpha,
+  beta,
+  maximizingPlayer,
+  cpuPlayerSymbol,
+  playerSymbol
+) {
+  // Base cases: check if the game is over
+  let result = checkWinner(cpuPlayerSymbol, board);
+  if (result !== null) {
+    return { score: result === 1 ? 10 - depth : depth - 10, move: -1 }; // Adjust score based on depth
+  }
+  result = checkWinner(playerSymbol, board);
+  if (result !== null) {
+    return { score: result === 1 ? depth - 10 : 10 - depth, move: -1 }; // Adjust score based on depth
+  }
+  if (emptyBoardSpaces(board).length === 0) {
+    return { score: 0, move: -1 }; // Return score and move
+  }
 
-//   for (let i = 0; i < emptySpots.length; i++) {
-//     //create an object for each and store the index of that spot
-//     let move = {};
-//     move.index = updatedBoard[emptySpots[i]];
+  if (maximizingPlayer) {
+    let bestScore = -Infinity;
+    let bestMove = -1;
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] === "") {
+        board[i] = cpuPlayerSymbol;
+        let score = minimax(
+          board,
+          depth + 1,
+          alpha,
+          beta,
+          false,
+          cpuPlayerSymbol,
+          playerSymbol
+        ).score;
+        board[i] = "";
+        if (score > bestScore) {
+          bestScore = score;
+          bestMove = i;
+        }
+        alpha = Math.max(alpha, bestScore);
+        if (beta <= alpha) break; // Beta cutoff
+      }
+    }
+    return { score: bestScore, move: bestMove };
+  } else {
+    let bestScore = Infinity;
+    let bestMove = -1;
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] === "") {
+        board[i] = playerSymbol;
+        let score = minimax(
+          board,
+          depth + 1,
+          alpha,
+          beta,
+          true,
+          cpuPlayerSymbol,
+          playerSymbol
+        ).score;
+        board[i] = "";
+        if (score < bestScore) {
+          bestScore = score;
+          bestMove = i;
+        }
+        beta = Math.min(beta, bestScore);
+        if (beta <= alpha) break; // Alpha cutoff
+      }
+    }
+    return { score: bestScore, move: bestMove };
+  }
+}
 
-//     // set the empty spot to the current player
-//     updatedBoard[emptySpots[i]] = cpuSymbol;
+// Function to make CPU move using minimax
+function makeCpuMove(board, playerSymbol) {
+  let cpuPlayerSymbol = playerSymbol === "X" ? "O" : "X"; // Determine the CPU player symbol
 
-//     /*collect the score resulted from calling minimax
-//       on the opponent of the current player*/
-//     if (playerSymbol == cpuSymbol) {
-//       let result = makeCpuMove(updatedBoard, playerSymbol);
-//       move.score = result.score;
-//     } else {
-//       let result = makeCpuMove(updatedBoard, cpuSymbol);
-//       move.score = result.score;
-//     }
+  let bestMove = -1;
+  let bestScore = -Infinity;
 
-//     // reset the spot to empty
-//     updatedBoard[emptySpots[i]] = move.index;
+  for (let i = 0; i < board.length; i++) {
+    if (board[i] === "") {
+      board[i] = cpuPlayerSymbol;
+      let score = minimax(board, 0, false, cpuPlayerSymbol, playerSymbol);
+      board[i] = ""; // Undo the move
 
-//     // push the object to the array
-//     moves.push(move);
-//   }
+      console.log(score);
 
-//   let bestMove;
-//   if (playerSymbol === cpuSymbol) {
-//     let bestScore = -10000;
-//     for (let i = 0; i < moves.length; i++) {
-//       if (moves[i].score > bestScore) {
-//         bestScore = moves[i].score;
-//         bestMove = i;
-//       }
-//     }
-//   } else {
-//     // else loop over the moves and choose the move with the lowest score
-//     let bestScore = 10000;
-//     for (let i = 0; i < moves.length; i++) {
-//       if (moves[i].score < bestScore) {
-//         bestScore = moves[i].score;
-//         bestMove = i;
-//       }
-//     }
-//   }
+      if (score.score > bestScore) {
+        bestScore = score.score;
+        bestMove = i;
+      }
+    }
+  }
 
-//   // return the chosen move (object) from the moves array
-//   switchPlayer();
-//   return moves[bestMove];
-// }
+  console.log("Computer's move: ", bestMove, "Symbol: ", cpuPlayerSymbol); // Log computer's move and symbol
 
-// // console.log(emptyIndexies(board));
+  if (bestMove !== -1) {
+    // Update the board with the computer's move
+    let CurrentButtonImage = gameButtons[bestMove].querySelector(".gameimg");
+    CurrentButtonImage.setAttribute(
+      "src",
+      cpuPlayerSymbol === "X" ? ImageforX : ImageforO
+    );
+    CurrentButtonImage.setAttribute(
+      "alt",
+      cpuPlayerSymbol === "X" ? "Player X" : "Player O"
+    );
 
-// /* Function call to play cpu */
-// play_against_cpu.addEventListener("click", playCpu);
+    board[bestMove] = cpuPlayerSymbol;
+
+    // Check for CPU's win
+    checkWinner(cpuPlayerSymbol, board);
+  }
+}
+
+// Function call to play cpu
+play_against_cpu.addEventListener("click", playCpu);
